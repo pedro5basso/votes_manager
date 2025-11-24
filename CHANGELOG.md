@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-11-24
+### Added
+- docker file 'docker-compose-yaml' with containers
+### Changed
+
+### Removed
+
 ## [0.2.0] - 2025-11-19
 ### Added
 - Python package 'votes_generator'.
