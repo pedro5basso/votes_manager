@@ -1,2 +1,4 @@
 /.idea
+/.idea/votes_manager.iml
 .venv
+python/.env
