@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.5.0] - 2025-12-13
+### Added
+- /python/utils/logging_config.py: adding new file for using and managing logs
+### Changed
+- .gitignore: adding new logs file and folder
+- docker-compose.yaml: adding kafka configuration to upload messages
+- /python/db/database_connector.py: adding logs
+- /python/votes_generator/run.py: updating logs
+- /python/votes_generator/vote_generator.py: adding logs, kafka connection and removing mysql for generic word 'database'
+### Removed
+
+
 ## [0.4.1] - 2025-12-13
 ### Added
 
