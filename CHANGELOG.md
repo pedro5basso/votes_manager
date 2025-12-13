@@ -1,7 +1,19 @@
-[# Changelog 
+# Changelog 
 All notable changes to this project will be documented in this file. 
 
 ## [Unreleased]
+
+## [0.4.0] - 2025-12-13
+### Added
+- /python/.env.example file for database connection
+- /python/db/database_connector.py: file used for database connection
+- /python/utils/boundary_objects.py: file used for managing boundary objects, such as provinces
+- /python/votes_generator/run.py: main file to run the vote generator
+- /python/votes_generator/vote_generator.py: file to generate the votes
+### Changed
+- .gitignore file: adding pycache files from all python packages, adding .env file for database connection
+
+### Removed
 
 ## [0.3.0] - 2025-11-24
 ### Added
