@@ -2,6 +2,8 @@ from python.db.database_connector import MySQLClient, MySQLConfig
 from python.votes_generator.vote_generator import VoteGenerator, VoteConfiguration
 
 if __name__ == "__main__":
+
+    # creting database configuration class
     mysql = MySQLClient(
         host=MySQLConfig.HOST,
         user=MySQLConfig.USER,
@@ -10,11 +12,11 @@ if __name__ == "__main__":
         port=MySQLConfig.PORT
     )
 
-    # configuracion
+    # creating votes configuration class
     vote_configuration = VoteConfiguration()
 
-    # 2) Crear generador
-    generator = VoteGenerator(mysql_client=mysql, configuration=vote_configuration)
+    # creating votes generator class
+    generator = VoteGenerator(database_client=mysql, configuration=vote_configuration)
 
-    # 3) Ejecutar
+    # starting votes generator
     generator.start()

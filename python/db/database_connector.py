@@ -1,10 +1,16 @@
 import os
-
+import logging
 import mysql.connector
 from dotenv import load_dotenv
 from mysql.connector import Error
 
+from python.utils.logging_config import setup_logging
+
 load_dotenv()
+
+setup_logging(logging.INFO)
+
+log = logging.getLogger(__name__)
 
 
 class MySQLConfig:
@@ -38,15 +44,15 @@ class MySQLClient:
                 database=self.database,
                 port=self.port,
             )
-            print("Conexión establecida correctamente.")
+            log.info("[BBDD]: Conexión establecida correctamente.")
         except Error as e:
-            print(f"Error de conexión: {e}")
+            log.error(f"[BBDD]: Error de conexión: {e}")
 
     def disconnect(self):
         """"""
         if self.connection and self.connection.is_connected():
             self.connection.close()
-            print("Conexión cerrada.")
+            log.info("[BBDD]: Conexión cerrada.")
 
     def fetch_all(self, query, params=None):
         """"""
