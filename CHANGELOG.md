@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.4.1] - 2025-12-13
+### Added
+
+### Changed
+
+### Removed
+- /python/.env file from git repo
+
 ## [0.4.0] - 2025-12-13
 ### Added
 - /python/.env.example file for database connection
