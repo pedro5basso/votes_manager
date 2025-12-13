@@ -1,15 +1,23 @@
-from python.db.database_connector import MySQLClient, MySQLConfig
-from python.utils.boundary_objects import Province, AutonomousRegion
-
-import time
+import csv
+import logging as log
 import random
+import time
 import uuid
-from typing import List, Dict
 from datetime import datetime
+from typing import Dict, List
+
 from faker import Faker
+
+
+from python.utils.boundary_objects import AutonomousRegion, Province
 
 fake = Faker()
 
+class VoteConfiguration:
+    TOTAL_VOTES = 1000
+    VOTES_PER_SECOND = 100
+    BLANK_VOTE_PROVABILITY = 0.01
+    GENERATE_CSV_FILE = True
 
 # ----------------------------------------------------
 # Clase principal generadora de votos
@@ -20,9 +28,7 @@ class VoteGenerator:
     def __init__(
         self,
         mysql_client,
-        votes_per_second: int = 100,
-        blank_vote_probability: float = 0.01,
-        parties: List[str] = None
+        configuration
     ):
         """
         Params:
@@ -33,16 +39,17 @@ class VoteGenerator:
         """
 
         self.mysql = mysql_client
-        self.votes_per_second = votes_per_second
-        self.blank_vote_probability = blank_vote_probability
+        self.config = configuration
+        self.votes_per_second = self.config.VOTES_PER_SECOND
+        self.blank_vote_probability = self.config.BLANK_VOTE_PROVABILITY
 
-        self.parties = parties or [
+        self.parties = [
             "Gato Unido",
             "Perro Liberal",
             "Lechuga Verde",
             "Pepino Social",
-            "Tiburón Popular",
-            "Águila Nacional",
+            "Tiburon Popular",
+            "Aguila Nacional",
             "Conejo Federal"
         ]
 
@@ -57,7 +64,8 @@ class VoteGenerator:
     # ----------------------------------------------------
 
     def load_reference_data(self):
-        print("Cargando provincias y CCAA desde MySQL...")
+        """"""
+        log.info("Cargando provincias y CCAA desde MySQL...")
 
         # ------ Provincias ------
         query = "SELECT * FROM provincias"
@@ -81,11 +89,11 @@ class VoteGenerator:
             for row in rows
         ]
 
-        print(f"  ✓ Provincias cargadas: {len(self.provinces)}")
+        log.info(f"  ✓ Provincias cargadas: {len(self.provinces)}")
 
         # ------ Pesos por población ------
         self._build_population_weights()
-        print(f"  ✓ Pesos generados (lista expandida): {len(self.weighted_provinces)}")
+        log.info(f"  ✓ Pesos generados (lista expandida): {len(self.weighted_provinces)}")
 
 
     # ----------------------------------------------------
@@ -93,11 +101,11 @@ class VoteGenerator:
     # ----------------------------------------------------
 
     def _build_population_weights(self):
+        """"""
         total_pop = sum(p.population for p in self.provinces)
         self.weighted_provinces = []
 
         for p in self.provinces:
-            # Número proporcional de "tickets"
             weight = max(1, int((p.population / total_pop) * 1000))
             self.weighted_provinces.extend([p] * weight)
 
@@ -106,6 +114,7 @@ class VoteGenerator:
     # ----------------------------------------------------
 
     def generate_vote(self) -> Dict:
+        """"""
         province = random.choice(self.weighted_provinces)
 
         blank_vote = random.random() < self.blank_vote_probability
@@ -116,6 +125,7 @@ class VoteGenerator:
             "blank_vote": blank_vote,
             "political_party": political_party,
             "province_code": province.code_province,
+            "province_name": province.name,
             "timestamp": datetime.utcnow().isoformat()
         }
 
@@ -133,36 +143,50 @@ class VoteGenerator:
         self.running = True
         interval = 1 / self.votes_per_second
 
-        print(f"\n--- Generando votos en tiempo real ---")
-        print(f"Velocidad: {self.votes_per_second} votos/segundo")
-        print(f"Intervalo: {interval:.6f} s\n")
+        log.info(f"\n--- Generando votos en tiempo real ---")
+        log.info(f"Velocidad: {self.votes_per_second} votos/segundo")
+        log.info(f"Intervalo: {interval:.6f} s\n")
+
+        counter_votes = 0
+        votes_history = list()
 
         while self.running:
             vote = self.generate_vote()
 
+            # send vote to kafka
             if callback:
                 callback(vote)
             else:
-                print(vote)
-
+                votes_history.append(vote)
+                # print(vote)
             time.sleep(interval)
+            if self.config.TOTAL_VOTES and counter_votes > self.config.TOTAL_VOTES:
+                self.stop()
+
+            counter_votes += 1
+
+        if self.config.GENERATE_CSV_FILE:
+            self._generate_csv_file(votes_history)
+
 
     def stop(self):
         self.running = False
 
 
-if __name__ == "__main__":
+    def _generate_csv_file(self, list_votes):
+        """"""
+        path = r"D:\tmp\votes\votes.csv"
+        if not list_votes:
+            raise ValueError("Empy votes list")
 
-    mysql = MySQLClient(
-        host=MySQLConfig.HOST,
-        user=MySQLConfig.USER,
-        password=MySQLConfig.PASSWORD,
-        database=MySQLConfig.DATABASE,
-        port=MySQLConfig.PORT
-    )
+        headers = set()
+        for d in list_votes:
+            headers.update(d.keys())
+        headers = list(headers)
 
-    # 2) Crear generador
-    generator = VoteGenerator(mysql_client=mysql, votes_per_second=10)
+        with open(path, mode="w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=headers)
+            writer.writeheader()
+            writer.writerows(list_votes)
 
-    # 3) Ejecutar
-    generator.start()
+        log.info(f"File created succesfully at {path}")
