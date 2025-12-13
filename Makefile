@@ -1,2 +1,2 @@
 PROJECT   = votes_manager
-VERSION   = 0.4.1
+VERSION   = 0.5.0

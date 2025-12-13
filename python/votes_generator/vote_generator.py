@@ -1,23 +1,31 @@
 import csv
-import logging as log
+import json
+import logging
 import random
 import time
 import uuid
 from datetime import datetime
 from typing import Dict, List
 
+from confluent_kafka import SerializingProducer
 from faker import Faker
 
-
+from python.utils.logging_config import setup_logging
 from python.utils.boundary_objects import AutonomousRegion, Province
 
 fake = Faker()
+
+setup_logging(logging.INFO)
+
+log = logging.getLogger(__name__)
 
 class VoteConfiguration:
     TOTAL_VOTES = 1000
     VOTES_PER_SECOND = 100
     BLANK_VOTE_PROVABILITY = 0.01
     GENERATE_CSV_FILE = True
+    TOPIC_NAME = "votes_raw"
+    KAFKA_PORT = "localhost:9092"
 
 # ----------------------------------------------------
 # Clase principal generadora de votos
@@ -27,7 +35,7 @@ class VoteGenerator:
 
     def __init__(
         self,
-        mysql_client,
+        database_client,
         configuration
     ):
         """
@@ -37,8 +45,7 @@ class VoteGenerator:
         - blank_vote_probability: probabilidad de voto en blanco
         - parties: lista de partidos ficticios
         """
-
-        self.mysql = mysql_client
+        self.db_client = database_client
         self.config = configuration
         self.votes_per_second = self.config.VOTES_PER_SECOND
         self.blank_vote_probability = self.config.BLANK_VOTE_PROVABILITY
@@ -65,14 +72,14 @@ class VoteGenerator:
 
     def load_reference_data(self):
         """"""
-        log.info("Cargando provincias y CCAA desde MySQL...")
+        log.info("[VotesGenerator]: Cargando provincias y CCAA desde MySQL...")
 
         # ------ Provincias ------
         query = "SELECT * FROM provincias"
 
-        self.mysql.connect()
-        rows = self.mysql.fetch_all(query)
-        self.mysql.disconnect()
+        self.db_client.connect()
+        rows = self.db_client.fetch_all(query)
+        self.db_client.disconnect()
 
         self.provinces = [
             Province(
@@ -89,11 +96,11 @@ class VoteGenerator:
             for row in rows
         ]
 
-        log.info(f"  ✓ Provincias cargadas: {len(self.provinces)}")
+        log.info(f"[VotesGenerator]: Provincias cargadas: {len(self.provinces)}")
 
         # ------ Pesos por población ------
         self._build_population_weights()
-        log.info(f"  ✓ Pesos generados (lista expandida): {len(self.weighted_provinces)}")
+        log.info(f"[VotesGenerator]: Pesos generados (lista expandida): {len(self.weighted_provinces)}")
 
 
     # ----------------------------------------------------
@@ -135,35 +142,65 @@ class VoteGenerator:
     # 4) Bucle generador en tiempo real
     # ----------------------------------------------------
 
-    def start(self, callback=None):
+    def start(self):
         """
-        callback → función que recibe cada voto generado
         por defecto: imprime en pantalla
         """
+
+        def delivery_report(err, msg):
+            if err:
+                log.error(f"[VotesGenerator]: Delivery failed: {err}")
+            else:
+                log.debug(
+                    f"[VotesGenerator]: Message delivered to {msg.topic()} [{msg.partition()}]"
+                )
+
         self.running = True
         interval = 1 / self.votes_per_second
 
-        log.info(f"\n--- Generando votos en tiempo real ---")
-        log.info(f"Velocidad: {self.votes_per_second} votos/segundo")
-        log.info(f"Intervalo: {interval:.6f} s\n")
+        log.info(f"[VotesGenerator]: --- Generando votos en tiempo real ---")
+        log.info(f"[VotesGenerator]: Velocidad: {self.votes_per_second} votos/segundo")
+        log.info(f"[VotesGenerator]: Intervalo: {interval:.6f} s\n")
 
         counter_votes = 0
         votes_history = list()
 
-        while self.running:
-            vote = self.generate_vote()
+        producer = SerializingProducer({
+            'bootstrap.servers': self.config.KAFKA_PORT
+            # 'on_delivery': delivery_report
+        })
 
-            # send vote to kafka
-            if callback:
-                callback(vote)
-            else:
-                votes_history.append(vote)
+        try:
+
+            while self.running:
+                vote = self.generate_vote()
                 # print(vote)
-            time.sleep(interval)
-            if self.config.TOTAL_VOTES and counter_votes > self.config.TOTAL_VOTES:
-                self.stop()
 
-            counter_votes += 1
+                # send vote to kafka
+                producer.produce(
+                    self.config.TOPIC_NAME,
+                    key=vote['id'],
+                    value=json.dumps(vote),
+                    on_delivery=delivery_report
+                )
+                producer.poll(0)
+
+                votes_history.append(vote)
+
+                time.sleep(interval)
+
+                if self.config.TOTAL_VOTES and counter_votes > self.config.TOTAL_VOTES:
+                    self.stop()
+
+                counter_votes += 1
+
+            producer.flush()
+
+        except BufferError as be:
+            log.error(f"[VotesGenerator]: Buffer full: {be}")
+            time.sleep(1)
+        except Exception as e:
+            log.error(f"[VotesGenerator]: Error generating votes: {e}")
 
         if self.config.GENERATE_CSV_FILE:
             self._generate_csv_file(votes_history)
@@ -189,4 +226,4 @@ class VoteGenerator:
             writer.writeheader()
             writer.writerows(list_votes)
 
-        log.info(f"File created succesfully at {path}")
+        log.info(f"[VotesGenerator]: File created succesfully at {path}")
