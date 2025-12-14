@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-12-14
+### Added
+- new file /spark/schemas/vote_schema.py: schema for managing votes
+- new file /spark/jobs/votes_streaming_job.py: job for reading votes on kafka
+### Changed
+- Adding to .gitignore spark.zip file
+### Removed
+
 ## [0.5.0] - 2025-12-13
 ### Added
 - /python/utils/logging_config.py: adding new file for using and managing logs
