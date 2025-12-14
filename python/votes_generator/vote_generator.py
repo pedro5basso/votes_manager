@@ -184,6 +184,7 @@ class VoteGenerator:
                     on_delivery=delivery_report
                 )
                 producer.poll(0)
+                producer.flush()
 
                 votes_history.append(vote)
 
@@ -193,8 +194,6 @@ class VoteGenerator:
                     self.stop()
 
                 counter_votes += 1
-
-            producer.flush()
 
         except BufferError as be:
             log.error(f"[VotesGenerator]: Buffer full: {be}")

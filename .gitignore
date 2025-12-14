@@ -17,3 +17,6 @@ python/votes_generator/__pycache__/
 # logs: file and folder
 python/votes_generator/logs
 python/votes_generator/logs/votes_generator.log
+
+# spark zip
+spark.zip
