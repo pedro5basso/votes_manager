@@ -8,5 +8,7 @@ vote_schema = StructType([
     StructField("blank_vote", BooleanType(), False),
     StructField("political_party", StringType(), True),
     StructField("province_code", StringType(), False),
+    StructField("province_name", StringType(), False),
+    StructField("autonomic_region_name", StringType(), False),
     StructField("timestamp", TimestampType(), False)
 ])

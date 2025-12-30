@@ -18,5 +18,11 @@ python/votes_generator/__pycache__/
 python/votes_generator/logs
 python/votes_generator/logs/votes_generator.log
 
-# spark zip
-spark.zip
+# streaming zip
+streaming.zip
+
+# datalake
+datalake
+checkpoints
+datalake/*
+checkpoints/*

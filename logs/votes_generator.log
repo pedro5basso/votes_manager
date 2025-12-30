@@ -1,0 +1,692 @@
+2025-12-22 21:13:34,586 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-22 21:13:36,653 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:16:44,997 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-22 21:17:37,546 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-22 21:17:37,583 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:17:37,584 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-22 21:17:37,587 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:17:37,589 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:18:26,821 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-22 21:21:44,750 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-22 21:21:44,752 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:21:44,753 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-22 21:21:44,756 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:21:44,757 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:22:03,822 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-22 21:26:35,500 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-22 21:26:35,505 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:26:35,506 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-22 21:26:35,514 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 21:26:35,515 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 22:23:32,118 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-22 22:23:35,153 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 22:24:13,944 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-22 22:24:18,111 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 22:28:13,093 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-22 22:39:44,838 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-22 22:39:44,899 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 22:39:44,900 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-22 22:39:44,903 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-22 22:39:44,904 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 11:54:10,976 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-24 11:54:17,732 | INFO     | py4j.java_gateway | Callback Server Starting
+2025-12-24 11:54:17,733 | INFO     | py4j.java_gateway | Socket listening on ('127.0.0.1', 64090)
+2025-12-24 11:54:20,902 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 11:59:28,368 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-24 11:59:34,406 | INFO     | py4j.java_gateway | Callback Server Starting
+2025-12-24 11:59:34,407 | INFO     | py4j.java_gateway | Socket listening on ('127.0.0.1', 64296)
+2025-12-24 11:59:34,979 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:04:50,773 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-24 12:04:57,243 | INFO     | py4j.java_gateway | Callback Server Starting
+2025-12-24 12:04:57,244 | INFO     | py4j.java_gateway | Socket listening on ('127.0.0.1', 64526)
+2025-12-24 12:05:00,919 | INFO     | py4j.clientserver | Python Server ready to receive messages
+2025-12-24 12:05:00,923 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 12:05:01,180 | ERROR    | py4j.clientserver | There was an exception while executing the Python Proxy on the Python Side.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 617, in _call_proxy
+    return_value = getattr(self.pool[obj_id], method)(*params)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\utils.py", line 120, in call
+    raise e
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\utils.py", line 117, in call
+    self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
+  File "D:\dev\UCM-BD_DE\votes_manager\streaming\jobs\votes_streaming_job.py", line 161, in _write_to_elasticsearch
+    .save()
+     ^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\readwriter.py", line 1461, in save
+    self._jwrite.save()
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\errors\exceptions\captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling o98.save.
+: org.apache.spark.SparkClassNotFoundException: [DATA_SOURCE_NOT_FOUND] Failed to find the data source: org.elasticsearch.spark.sql. Please find packages at `https://spark.apache.org/third-party-projects.html`.
+	at org.apache.spark.sql.errors.QueryExecutionErrors$.dataSourceNotFoundError(QueryExecutionErrors.scala:725)
+	at org.apache.spark.sql.execution.datasources.DataSource$.lookupDataSource(DataSource.scala:647)
+	at org.apache.spark.sql.execution.datasources.DataSource$.lookupDataSourceV2(DataSource.scala:697)
+	at org.apache.spark.sql.DataFrameWriter.lookupV2Provider(DataFrameWriter.scala:873)
+	at org.apache.spark.sql.DataFrameWriter.saveInternal(DataFrameWriter.scala:260)
+	at org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:251)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.sendCommand(ClientServerConnection.java:244)
+	at py4j.CallbackClient.sendCommand(CallbackClient.java:384)
+	at py4j.CallbackClient.sendCommand(CallbackClient.java:356)
+	at py4j.reflection.PythonProxyHandler.invoke(PythonProxyHandler.java:106)
+	at com.sun.proxy.$Proxy30.call(Unknown Source)
+	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1(ForeachBatchSink.scala:53)
+	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1$adapted(ForeachBatchSink.scala:53)
+	at org.apache.spark.sql.execution.streaming.sources.ForeachBatchSink.addBatch(ForeachBatchSink.scala:34)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:732)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$6(SQLExecution.scala:125)
+	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:201)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:108)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:66)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$16(MicroBatchExecution.scala:729)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:427)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:425)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runBatch(MicroBatchExecution.scala:729)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$2(MicroBatchExecution.scala:286)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:427)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:425)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:249)
+	at org.apache.spark.sql.execution.streaming.ProcessingTimeExecutor.execute(TriggerExecutor.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:239)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:311)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.org$apache$spark$sql$execution$streaming$StreamExecution$$runStream(StreamExecution.scala:289)
+	at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.$anonfun$run$1(StreamExecution.scala:211)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.JobArtifactSet$.withActiveJobArtifactState(JobArtifactSet.scala:94)
+	at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.run(StreamExecution.scala:211)
+Caused by: java.lang.ClassNotFoundException: org.elasticsearch.spark.sql.DefaultSource
+	at java.base/java.net.URLClassLoader.findClass(URLClassLoader.java:476)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:593)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at org.apache.spark.sql.execution.datasources.DataSource$.$anonfun$lookupDataSource$5(DataSource.scala:633)
+	at scala.util.Try$.apply(Try.scala:210)
+	at org.apache.spark.sql.execution.datasources.DataSource$.$anonfun$lookupDataSource$4(DataSource.scala:633)
+	at scala.util.Failure.orElse(Try.scala:221)
+	at org.apache.spark.sql.execution.datasources.DataSource$.lookupDataSource(DataSource.scala:633)
+	... 48 more
+
+2025-12-24 12:07:24,977 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 12:07:24,979 | INFO     | py4j.clientserver | Error while python server was waiting fora message
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 566, in wait_for_commands
+    command = smart_decode(self.stream.readline())[:-1]
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 12:07:25,016 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:07:25,017 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:07:25,017 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-24 12:07:25,018 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:07:25,020 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:23:19,404 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-24 12:23:27,467 | INFO     | py4j.java_gateway | Callback Server Starting
+2025-12-24 12:23:27,468 | INFO     | py4j.java_gateway | Socket listening on ('127.0.0.1', 65062)
+2025-12-24 12:23:30,738 | INFO     | py4j.clientserver | Python Server ready to receive messages
+2025-12-24 12:23:30,739 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 12:23:31,022 | ERROR    | py4j.clientserver | There was an exception while executing the Python Proxy on the Python Side.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 617, in _call_proxy
+    return_value = getattr(self.pool[obj_id], method)(*params)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\utils.py", line 120, in call
+    raise e
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\utils.py", line 117, in call
+    self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
+  File "D:\dev\UCM-BD_DE\votes_manager\streaming\jobs\votes_streaming_job.py", line 166, in _write_to_elasticsearch
+    .save()
+     ^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\readwriter.py", line 1461, in save
+    self._jwrite.save()
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\errors\exceptions\captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling o105.save.
+: org.apache.spark.SparkClassNotFoundException: [DATA_SOURCE_NOT_FOUND] Failed to find the data source: org.elasticsearch.spark.sql. Please find packages at `https://spark.apache.org/third-party-projects.html`.
+	at org.apache.spark.sql.errors.QueryExecutionErrors$.dataSourceNotFoundError(QueryExecutionErrors.scala:725)
+	at org.apache.spark.sql.execution.datasources.DataSource$.lookupDataSource(DataSource.scala:647)
+	at org.apache.spark.sql.execution.datasources.DataSource$.lookupDataSourceV2(DataSource.scala:697)
+	at org.apache.spark.sql.DataFrameWriter.lookupV2Provider(DataFrameWriter.scala:873)
+	at org.apache.spark.sql.DataFrameWriter.saveInternal(DataFrameWriter.scala:260)
+	at org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:251)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.sendCommand(ClientServerConnection.java:244)
+	at py4j.CallbackClient.sendCommand(CallbackClient.java:384)
+	at py4j.CallbackClient.sendCommand(CallbackClient.java:356)
+	at py4j.reflection.PythonProxyHandler.invoke(PythonProxyHandler.java:106)
+	at com.sun.proxy.$Proxy30.call(Unknown Source)
+	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1(ForeachBatchSink.scala:53)
+	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1$adapted(ForeachBatchSink.scala:53)
+	at org.apache.spark.sql.execution.streaming.sources.ForeachBatchSink.addBatch(ForeachBatchSink.scala:34)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:732)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$6(SQLExecution.scala:125)
+	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:201)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:108)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:66)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$16(MicroBatchExecution.scala:729)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:427)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:425)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runBatch(MicroBatchExecution.scala:729)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$2(MicroBatchExecution.scala:286)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:427)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:425)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:249)
+	at org.apache.spark.sql.execution.streaming.ProcessingTimeExecutor.execute(TriggerExecutor.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:239)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:311)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.org$apache$spark$sql$execution$streaming$StreamExecution$$runStream(StreamExecution.scala:289)
+	at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.$anonfun$run$1(StreamExecution.scala:211)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.JobArtifactSet$.withActiveJobArtifactState(JobArtifactSet.scala:94)
+	at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.run(StreamExecution.scala:211)
+Caused by: java.lang.ClassNotFoundException: org.elasticsearch.spark.sql.DefaultSource
+	at java.base/java.net.URLClassLoader.findClass(URLClassLoader.java:476)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:593)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at org.apache.spark.sql.execution.datasources.DataSource$.$anonfun$lookupDataSource$5(DataSource.scala:633)
+	at scala.util.Try$.apply(Try.scala:210)
+	at org.apache.spark.sql.execution.datasources.DataSource$.$anonfun$lookupDataSource$4(DataSource.scala:633)
+	at scala.util.Failure.orElse(Try.scala:221)
+	at org.apache.spark.sql.execution.datasources.DataSource$.lookupDataSource(DataSource.scala:633)
+	... 48 more
+
+2025-12-24 12:29:13,487 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 12:29:13,490 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:29:13,490 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-24 12:29:13,491 | INFO     | py4j.clientserver | Error while python server was waiting fora message
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 566, in wait_for_commands
+    command = smart_decode(self.stream.readline())[:-1]
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 12:29:13,492 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:29:13,493 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:29:13,495 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:30:20,751 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-24 12:30:26,379 | INFO     | py4j.java_gateway | Callback Server Starting
+2025-12-24 12:30:26,379 | INFO     | py4j.java_gateway | Socket listening on ('127.0.0.1', 65412)
+2025-12-24 12:30:29,411 | INFO     | py4j.clientserver | Python Server ready to receive messages
+2025-12-24 12:30:30,630 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 12:30:34,660 | ERROR    | py4j.clientserver | There was an exception while executing the Python Proxy on the Python Side.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 617, in _call_proxy
+    return_value = getattr(self.pool[obj_id], method)(*params)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\utils.py", line 120, in call
+    raise e
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\utils.py", line 117, in call
+    self.func(DataFrame(jdf, wrapped_session_jdf), batch_id)
+  File "D:\dev\UCM-BD_DE\votes_manager\streaming\jobs\votes_streaming_job.py", line 166, in _write_to_elasticsearch
+    .save()
+     ^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\sql\readwriter.py", line 1461, in save
+    self._jwrite.save()
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1322, in __call__
+    return_value = get_return_value(
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\pyspark.zip\pyspark\errors\exceptions\captured.py", line 179, in deco
+    return f(*a, **kw)
+           ^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\protocol.py", line 326, in get_return_value
+    raise Py4JJavaError(
+py4j.protocol.Py4JJavaError: An error occurred while calling o105.save.
+: org.apache.spark.SparkException: Job aborted due to stage failure: Task 7 in stage 1.0 failed 1 times, most recent failure: Lost task 7.0 in stage 1.0 (TID 7) (DESKTOP-HMVAKG6.mshome.net executor driver): org.elasticsearch.hadoop.EsHadoopIllegalArgumentException: Detected type name in resource [votes_by_party/_doc]. Remove type name to continue.
+	at org.elasticsearch.hadoop.rest.Resource.<init>(Resource.java:88)
+	at org.elasticsearch.hadoop.rest.RestService.createWriter(RestService.java:595)
+	at org.elasticsearch.spark.rdd.EsRDDWriter.write(EsRDDWriter.scala:71)
+	at org.elasticsearch.spark.sql.EsSparkSQL$.$anonfun$saveToEs$1(EsSparkSQL.scala:103)
+	at org.elasticsearch.spark.sql.EsSparkSQL$.$anonfun$saveToEs$1$adapted(EsSparkSQL.scala:103)
+	at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+	at org.apache.spark.scheduler.Task.run(Task.scala:141)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:621)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:624)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+Driver stacktrace:
+	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2898)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2834)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2833)
+	at scala.collection.immutable.List.foreach(List.scala:333)
+	at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2833)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:1253)
+	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:1253)
+	at scala.Option.foreach(Option.scala:437)
+	at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:1253)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:3102)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:3036)
+	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:3025)
+	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:995)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2393)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2414)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2446)
+	at org.elasticsearch.spark.sql.EsSparkSQL$.saveToEs(EsSparkSQL.scala:103)
+	at org.elasticsearch.spark.sql.ElasticsearchRelation.insert(DefaultSource.scala:629)
+	at org.elasticsearch.spark.sql.DefaultSource.createRelation(DefaultSource.scala:107)
+	at org.apache.spark.sql.execution.datasources.SaveIntoDataSourceCommand.run(SaveIntoDataSourceCommand.scala:48)
+	at org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult$lzycompute(commands.scala:75)
+	at org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult(commands.scala:73)
+	at org.apache.spark.sql.execution.command.ExecutedCommandExec.executeCollect(commands.scala:84)
+	at org.apache.spark.sql.execution.QueryExecution$$anonfun$eagerlyExecuteCommands$1.$anonfun$applyOrElse$1(QueryExecution.scala:107)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$6(SQLExecution.scala:125)
+	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:201)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:108)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:66)
+	at org.apache.spark.sql.execution.QueryExecution$$anonfun$eagerlyExecuteCommands$1.applyOrElse(QueryExecution.scala:107)
+	at org.apache.spark.sql.execution.QueryExecution$$anonfun$eagerlyExecuteCommands$1.applyOrElse(QueryExecution.scala:98)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:461)
+	at org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:76)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:461)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.org$apache$spark$sql$catalyst$plans$logical$AnalysisHelper$$super$transformDownWithPruning(LogicalPlan.scala:32)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.transformDownWithPruning(AnalysisHelper.scala:267)
+	at org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.transformDownWithPruning$(AnalysisHelper.scala:263)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.transformDownWithPruning(LogicalPlan.scala:32)
+	at org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.transformDownWithPruning(LogicalPlan.scala:32)
+	at org.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:437)
+	at org.apache.spark.sql.execution.QueryExecution.eagerlyExecuteCommands(QueryExecution.scala:98)
+	at org.apache.spark.sql.execution.QueryExecution.commandExecuted$lzycompute(QueryExecution.scala:85)
+	at org.apache.spark.sql.execution.QueryExecution.commandExecuted(QueryExecution.scala:83)
+	at org.apache.spark.sql.execution.QueryExecution.assertCommandExecuted(QueryExecution.scala:142)
+	at org.apache.spark.sql.DataFrameWriter.runCommand(DataFrameWriter.scala:869)
+	at org.apache.spark.sql.DataFrameWriter.saveToV1Source(DataFrameWriter.scala:391)
+	at org.apache.spark.sql.DataFrameWriter.saveInternal(DataFrameWriter.scala:364)
+	at org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:251)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
+	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:374)
+	at py4j.Gateway.invoke(Gateway.java:282)
+	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
+	at py4j.commands.CallCommand.execute(CallCommand.java:79)
+	at py4j.ClientServerConnection.sendCommand(ClientServerConnection.java:244)
+	at py4j.CallbackClient.sendCommand(CallbackClient.java:384)
+	at py4j.CallbackClient.sendCommand(CallbackClient.java:356)
+	at py4j.reflection.PythonProxyHandler.invoke(PythonProxyHandler.java:106)
+	at com.sun.proxy.$Proxy31.call(Unknown Source)
+	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1(ForeachBatchSink.scala:53)
+	at org.apache.spark.sql.execution.streaming.sources.PythonForeachBatchHelper$.$anonfun$callForeachBatch$1$adapted(ForeachBatchSink.scala:53)
+	at org.apache.spark.sql.execution.streaming.sources.ForeachBatchSink.addBatch(ForeachBatchSink.scala:34)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$17(MicroBatchExecution.scala:732)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$6(SQLExecution.scala:125)
+	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:201)
+	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:108)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:66)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runBatch$16(MicroBatchExecution.scala:729)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:427)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:425)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runBatch(MicroBatchExecution.scala:729)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$2(MicroBatchExecution.scala:286)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken(ProgressReporter.scala:427)
+	at org.apache.spark.sql.execution.streaming.ProgressReporter.reportTimeTaken$(ProgressReporter.scala:425)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.reportTimeTaken(StreamExecution.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.$anonfun$runActivatedStream$1(MicroBatchExecution.scala:249)
+	at org.apache.spark.sql.execution.streaming.ProcessingTimeExecutor.execute(TriggerExecutor.scala:67)
+	at org.apache.spark.sql.execution.streaming.MicroBatchExecution.runActivatedStream(MicroBatchExecution.scala:239)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.$anonfun$runStream$1(StreamExecution.scala:311)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:900)
+	at org.apache.spark.sql.execution.streaming.StreamExecution.org$apache$spark$sql$execution$streaming$StreamExecution$$runStream(StreamExecution.scala:289)
+	at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.$anonfun$run$1(StreamExecution.scala:211)
+	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
+	at org.apache.spark.JobArtifactSet$.withActiveJobArtifactState(JobArtifactSet.scala:94)
+	at org.apache.spark.sql.execution.streaming.StreamExecution$$anon$1.run(StreamExecution.scala:211)
+Caused by: org.elasticsearch.hadoop.EsHadoopIllegalArgumentException: Detected type name in resource [votes_by_party/_doc]. Remove type name to continue.
+	at org.elasticsearch.hadoop.rest.Resource.<init>(Resource.java:88)
+	at org.elasticsearch.hadoop.rest.RestService.createWriter(RestService.java:595)
+	at org.elasticsearch.spark.rdd.EsRDDWriter.write(EsRDDWriter.scala:71)
+	at org.elasticsearch.spark.sql.EsSparkSQL$.$anonfun$saveToEs$1(EsSparkSQL.scala:103)
+	at org.elasticsearch.spark.sql.EsSparkSQL$.$anonfun$saveToEs$1$adapted(EsSparkSQL.scala:103)
+	at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:93)
+	at org.apache.spark.TaskContext.runTaskWithListeners(TaskContext.scala:166)
+	at org.apache.spark.scheduler.Task.run(Task.scala:141)
+	at org.apache.spark.executor.Executor$TaskRunner.$anonfun$run$4(Executor.scala:621)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64)
+	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61)
+	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:624)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2025-12-24 12:50:03,113 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 12:50:03,123 | INFO     | py4j.clientserver | Error while python server was waiting fora message
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 566, in wait_for_commands
+    command = smart_decode(self.stream.readline())[:-1]
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 12:50:03,125 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:50:03,125 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:50:03,126 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-24 12:50:03,128 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:50:03,128 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 12:50:37,243 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-24 12:50:43,135 | INFO     | py4j.java_gateway | Callback Server Starting
+2025-12-24 12:50:43,135 | INFO     | py4j.java_gateway | Socket listening on ('127.0.0.1', 50261)
+2025-12-24 12:50:46,547 | INFO     | py4j.clientserver | Python Server ready to receive messages
+2025-12-24 12:50:46,547 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 12:51:38,217 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 12:52:17,785 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 13:02:19,346 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 13:03:00,159 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 13:03:35,697 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 13:04:14,911 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 13:04:56,241 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 13:05:33,944 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-24 13:16:50,338 | INFO     | py4j.clientserver | Error while receiving.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 13:16:50,339 | INFO     | py4j.clientserver | Error while python server was waiting fora message
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 566, in wait_for_commands
+    command = smart_decode(self.stream.readline())[:-1]
+                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+2025-12-24 13:16:50,352 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 13:16:50,354 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 13:16:50,354 | ERROR    | root | Exception while sending command.
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 511, in send_command
+    answer = smart_decode(self.stream.readline()[:-1])
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Pedro Basso\AppData\Local\Programs\Python\Python311\Lib\socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] Se ha forzado la interrupción de una conexión existente por el host remoto
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\java_gateway.py", line 1038, in send_command
+    response = connection.send_command(command)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\spark\3.5.6\python\lib\py4j-0.10.9.7-src.zip\py4j\clientserver.py", line 539, in send_command
+    raise Py4JNetworkError(
+py4j.protocol.Py4JNetworkError: Error while sending or receiving
+2025-12-24 13:16:50,359 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-24 13:16:50,360 | INFO     | py4j.clientserver | Closing down clientserver connection
+2025-12-30 08:48:24,182 | INFO     | streaming.jobs.votes_streaming_job | [StreamingJob]: Executing job
+2025-12-30 08:48:30,821 | INFO     | py4j.java_gateway | Callback Server Starting
+2025-12-30 08:48:30,822 | INFO     | py4j.java_gateway | Socket listening on ('127.0.0.1', 56863)
+2025-12-30 08:48:32,965 | INFO     | py4j.clientserver | Python Server ready to receive messages
+2025-12-30 08:48:32,966 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:50:43,694 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:50:50,316 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:50:52,715 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:50:54,502 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:50:56,230 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:50:58,038 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:51:00,094 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 08:51:03,022 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:18,659 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:20,051 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:21,610 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:22,892 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:24,064 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:25,311 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:26,644 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:28,198 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:29,682 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:01:31,039 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:14,816 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:16,268 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:17,549 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:18,924 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:20,099 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:21,388 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:22,692 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:23,881 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:25,097 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:26,258 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:03:28,383 | INFO     | py4j.clientserver | Received command c on object id p0
+2025-12-30 09:34:11,677 | INFO     | py4j.clientserver | Closing down clientserver connection
