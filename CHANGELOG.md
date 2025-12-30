@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-12-30
+### Added
+- /streaming/jobs/run_job.py: file for running spark job
+- /streaming/jobs/votes_streaming_job.py: spark job for reading votes from kafka
+- Scala and Spark version on env example file
+- Adding on .gitignore datalake and checkpoints folders
+### Changed
+- /python/utils/boundary_objects.py: Removing fields from Autonomous Region class. Updating names on Province class
+- /python/votes_generator/vote_generator.py: new configuration fields on VoteConfiguration class. 
+Adding autonomous region and province name on default votes
+### Removed
+
 ## [0.6.0] - 2025-12-14
 ### Added
 - new file /spark/schemas/vote_schema.py: schema for managing votes
