@@ -9,6 +9,7 @@ class Province:
     name: str
     alternative_name: str
     autonomic_region_code: str
+    autonomic_region_name: str
     total_seats: int
     latitude: float
     longitude: float
@@ -20,3 +21,22 @@ class AutonomousRegion:
     code: str
     name: str
     alternative_name: str
+    senators: int
+    total_seats: int
+    provinces: List[Province]
+
+
+@dataclass
+class Country:
+    regions: List[AutonomousRegion]
+
+
+@dataclass
+class PoliticalParty:
+    name: str
+    popularity: float
+
+
+@dataclass
+class Parties:
+    parties: List[PoliticalParty]

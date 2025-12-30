@@ -12,7 +12,8 @@ from confluent_kafka import SerializingProducer
 from faker import Faker
 
 from python.utils.logging_config import setup_logging
-from python.utils.boundary_objects import AutonomousRegion, Province
+from python.db.get_db_information import DataBaseInformationObject
+from python.utils.boundary_objects import Province, AutonomousRegion
 
 fake = Faker()
 
@@ -36,11 +37,12 @@ class VoteConfiguration:
     _NUM_PARTITIONS = MB_PER_SECOND_PRODUCTION/MB_PER_KAFKA_PARTITION
     NUM_PARTITIONS = math.ceil(_NUM_PARTITIONS) if int(_NUM_PARTITIONS) else 1
 
-    TOPIC_NAME = "votes_raw_v02"
+    TOPIC_NAME = "votes_raw_v03"
     KAFKA_PORT = "localhost:9092"
 
     BLANK_VOTE_PROVABILITY = 0.01
     GENERATE_CSV_FILE = True
+
 
 class VoteGenerator:
 
@@ -56,58 +58,30 @@ class VoteGenerator:
         - blank_vote_probability: probabilidad de voto en blanco
         - parties: lista de partidos ficticios
         """
-        self.db_client = database_client
+        self.db_info_object = DataBaseInformationObject(database_client)
+        # self.country = self.db_info_object.country
         self.config = configuration
         self.votes_per_second = self.config.VOTES_PER_SECOND
         self.blank_vote_probability = self.config.BLANK_VOTE_PROVABILITY
 
-        self.parties = [
-            "Gato Unido",
-            "Perro Liberal",
-            "Lechuga Verde",
-            "Pepino Social",
-            "Tiburon Popular",
-            "Aguila Nacional",
-            "Conejo Federal"
-        ]
+        self.parties = self.db_info_object.get_political_parties()
+        self.country = self.db_info_object.country
+        self.names_mapped = self.db_info_object.mapped_names
 
         self.running = False
         self.provinces: List[Province] = []
         self.weighted_provinces: List[Province] = []  # provinces repeated by pop weight
-        self.autonomic_regions: List[AutonomousRegion] = []
 
         self.load_provinces_data()
-        self.load_autonomic_regions_data()
 
 
     def load_provinces_data(self):
         """"""
-        log.info("[VotesGenerator]: Loading provinces from MySQL...")
+        for region in self.country.regions:
+            for province in region.provinces:
+                self.provinces.append(province)
 
-        query = "SELECT * FROM provincias"
-
-        self.db_client.connect()
-        rows = self.db_client.fetch_all(query)
-        self.db_client.disconnect()
-
-        self.provinces = [
-            Province(
-                id=row['id'],
-                code_province=row['codigo_provincia'],
-                name=row['nombre'],
-                alternative_name=row['nombre_alternativo'],
-                autonomic_region_code=row['codigo_comunidad'],
-                total_seats=row['total_diputados'],
-                latitude=row['latitud'],
-                longitude=row['longitud'],
-                population=row['habitantes']
-            )
-            for row in rows
-        ]
-
-        log.info(f"[VotesGenerator]: Total Provinces Loaded: {len(self.provinces)}")
-
-        # ------ Pesos por población ------
+        # population weights
         self._build_population_weights()
         log.info(f"[VotesGenerator]: Population weights (expanded list): {len(self.weighted_provinces)}")
 
@@ -122,34 +96,13 @@ class VoteGenerator:
             self.weighted_provinces.extend([p] * weight)
 
 
-    def load_autonomic_regions_data(self):
-        """"""
-        log.info("[VotesGenerator]: Loading Autonomic Regions from MySQL...")
-
-        query = "SELECT * FROM comunidades_autonomas"
-
-        self.db_client.connect()
-        rows = self.db_client.fetch_all(query)
-        self.db_client.disconnect()
-
-        self.autonomic_regions = [
-            AutonomousRegion(
-                code=row['codigo_comunidad'],
-                name=row['nombre'],
-                alternative_name=row['nombre_alternativo']
-            )
-            for row in rows
-        ]
-
-        log.info(f"[VotesGenerator]: Autonomic regions loaded: {len(self.autonomic_regions)}")
-
-
     def generate_vote(self) -> Dict:
         """"""
         province = random.choice(self.weighted_provinces)
-        autonomic_region = self._get_autonomic_region_from_province(province.autonomic_region_code)
 
-        autonomic_name = autonomic_region.alternative_name if autonomic_region.alternative_name else autonomic_region.name
+        autonomic_name = self.names_mapped.get(province.name)
+
+        location = f"{province.latitude},{province.longitude}"
 
         blank_vote = random.random() < self.blank_vote_probability
         political_party = None if blank_vote else random.choice(self.parties)
@@ -161,16 +114,11 @@ class VoteGenerator:
             "province_code": province.code_province,
             "province_name": province.name,
             "autonomic_region_name": autonomic_name,
+            "location": location,
             "timestamp": datetime.utcnow().isoformat()
         }
 
         return vote
-
-    def _get_autonomic_region_from_province(self, province_ar):
-        """"""
-        for aut_reg in self.autonomic_regions:
-            if aut_reg.code == province_ar:
-                return aut_reg
 
 
     def start(self):

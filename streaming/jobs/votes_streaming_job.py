@@ -7,6 +7,7 @@ from pyspark.sql.functions import col, count, from_json, window, to_timestamp, l
 
 load_dotenv()
 from python.utils.logging_config import setup_logging
+from python.votes_generator.vote_generator import VoteConfiguration
 from streaming.schemas.vote_schema import vote_schema
 
 setup_logging(logging.INFO)
@@ -14,13 +15,19 @@ setup_logging(logging.INFO)
 log = logging.getLogger(__name__)
 
 class DataLakeConfig:
-    BASE_PATH = "file:///D:/dev/UCM-BD_DE/votes_manager"
-    BRONZE_PATH = f"{BASE_PATH}/datalake/bronze/votes"
-    SILVER_PATH = f"{BASE_PATH}/datalake/silver/votes"
-    GOLD_PATH = f"{BASE_PATH}/datalake/gold/votes"
-    CHECKPOINT_BRONZE = f"{BASE_PATH}/checkpoints/bronze/votes"
-    CHECKPOINT_SILVER = f"{BASE_PATH}/checkpoints/silver/votes"
-    CHECKPOINT_GOLD = f"{BASE_PATH}/checkpoints/gold/votes"
+    PATH_BASE = "file:///D:/dev/UCM-BD_DE/votes_manager"
+    PATH_BRONZE = f"{PATH_BASE}/datalake/bronze/votes"
+    PATH_SILVER = f"{PATH_BASE}/datalake/silver/votes"
+    PATH_GOLD = f"{PATH_BASE}/datalake/gold/votes"
+    PATH_PROVINCES = f'{PATH_GOLD}/votes_by_province'
+    PATH_AUTONOMIC_REG = f'{PATH_GOLD}/votes_by_autonomic_reg'
+    PATH_POLITICAL_PARTIES = f'{PATH_GOLD}/votes_by_political_party'
+    CHECKPOINT_BRONZE = f"{PATH_BASE}/checkpoints/bronze/votes"
+    CHECKPOINT_SILVER = f"{PATH_BASE}/checkpoints/silver/votes"
+    CHECKPOINT_GOLD = f"{PATH_BASE}/checkpoints/gold/votes"
+    CHECKPOINT_PROVINCES = f'{CHECKPOINT_GOLD}/provinces'
+    CHECKPOINT_AUTONOMIC_REG = f'{CHECKPOINT_GOLD}/autonomic_reg'
+    CHECKPOINT_POLITICAL_PARTIES = f'{CHECKPOINT_GOLD}/political_parties'
     
 
 class StreamingJob:
@@ -54,7 +61,7 @@ class StreamingJob:
 
         # Bronze
         bronze_df = self._parse_votes(raw_df)
-        bronze_query = self._write_on_datalake(bronze_df, DataLakeConfig.BRONZE_PATH, DataLakeConfig.CHECKPOINT_BRONZE)
+        bronze_query = self._write_on_datalake(bronze_df, DataLakeConfig.PATH_BRONZE, DataLakeConfig.CHECKPOINT_BRONZE)
 
         silver_df = (
             bronze_df
@@ -66,7 +73,7 @@ class StreamingJob:
             silver_df
             .writeStream
             .format("parquet")
-            .option("path", DataLakeConfig.SILVER_PATH)
+            .option("path", DataLakeConfig.PATH_SILVER)
             .option("checkpointLocation", DataLakeConfig.CHECKPOINT_SILVER)
             .outputMode("append")
             .start()
@@ -94,7 +101,7 @@ class StreamingJob:
             .writeStream
             .outputMode("append")
             .foreachBatch(self._write_to_elasticsearch)
-            .option("path", DataLakeConfig.GOLD_PATH)
+            .option("path", DataLakeConfig.PATH_GOLD)
             .option("checkpointLocation", f"{DataLakeConfig.CHECKPOINT_GOLD}/votes_by_party")
             .start()
         )
@@ -124,7 +131,7 @@ class StreamingJob:
             self.spark.readStream
             .format("kafka")
             .option("kafka.bootstrap.servers", "localhost:9092")
-            .option("subscribe", "votes_raw_v02")
+            .option("subscribe", VoteConfiguration.TOPIC_NAME)
             .option("startingOffsets", "latest")
             .option("failOnDataLoss", "false")
             .load()
