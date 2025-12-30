@@ -8,7 +8,7 @@ class Province:
     code_province: str
     name: str
     alternative_name: str
-    aarr_code: str
+    autonomic_region_code: str
     total_seats: int
     latitude: float
     longitude: float
@@ -20,5 +20,3 @@ class AutonomousRegion:
     code: str
     name: str
     alternative_name: str
-    total_senators: int
-    provinces: List[Province]

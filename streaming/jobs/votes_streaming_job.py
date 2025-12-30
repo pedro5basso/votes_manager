@@ -1,14 +1,17 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import (
-    col, from_json, window, count
-)
+import logging
 import os
 
 from dotenv import load_dotenv
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, count, from_json, window, to_timestamp, lower
 
 load_dotenv()
-
+from python.utils.logging_config import setup_logging
 from streaming.schemas.vote_schema import vote_schema
+
+setup_logging(logging.INFO)
+
+log = logging.getLogger(__name__)
 
 class DataLakeConfig:
     BASE_PATH = "file:///D:/dev/UCM-BD_DE/votes_manager"
@@ -17,6 +20,7 @@ class DataLakeConfig:
     GOLD_PATH = f"{BASE_PATH}/datalake/gold/votes"
     CHECKPOINT_BRONZE = f"{BASE_PATH}/checkpoints/bronze/votes"
     CHECKPOINT_SILVER = f"{BASE_PATH}/checkpoints/silver/votes"
+    CHECKPOINT_GOLD = f"{BASE_PATH}/checkpoints/gold/votes"
     
 
 class StreamingJob:
@@ -27,8 +31,8 @@ class StreamingJob:
         self.spark_version=os.getenv("SPARk_VERSION")
         self.spark = self._create_spark_session()
         self.spark.sparkContext.setLogLevel("WARN")
-    
-    
+
+
     def _create_spark_session(self):
         """"""
         return (
@@ -42,14 +46,87 @@ class StreamingJob:
         )
 
 
+    def execute_job(self):
+        """"""
+        log.info("[StreamingJob]: Executing job")
+        # getting raw data from kafka
+        raw_df = self._read_votes_from_kafka()
+
+        # Bronze
+        bronze_df = self._parse_votes(raw_df)
+        bronze_query = self._write_on_datalake(bronze_df, DataLakeConfig.BRONZE_PATH, DataLakeConfig.CHECKPOINT_BRONZE)
+
+        silver_df = (
+            bronze_df
+            .withColumn("timestamp", to_timestamp(col("timestamp"), "yyyy-MM-dd'T'HH:mm:ss.SSSSSS")) \
+            .withColumn("political_party_lower", lower(col("political_party")))
+        )
+
+        silver_query = (
+            silver_df
+            .writeStream
+            .format("parquet")
+            .option("path", DataLakeConfig.SILVER_PATH)
+            .option("checkpointLocation", DataLakeConfig.CHECKPOINT_SILVER)
+            .outputMode("append")
+            .start()
+        )
+
+        # votes_by_party = (
+        #     silver_df
+        #     .withWatermark("timestamp", "30 seconds")
+        #     .groupBy(
+        #         window("timestamp", "10 seconds"),
+        #         col("political_party")
+        #     )
+        #     .agg(count("*").alias("votes"))
+        # )
+
+        # votes_by_party_es = (
+        #     votes_by_party
+        #     .withColumn("window_start", col("window.start"))
+        #     .withColumn("window_end", col("window.end"))
+        #     .drop("window")
+        # )
+
+        query = (
+            silver_df
+            .writeStream
+            .outputMode("append")
+            .foreachBatch(self._write_to_elasticsearch)
+            .option("path", DataLakeConfig.GOLD_PATH)
+            .option("checkpointLocation", f"{DataLakeConfig.CHECKPOINT_GOLD}/votes_by_party")
+            .start()
+        )
+
+        bronze_query.awaitTermination()
+        silver_query.awaitTermination()
+        query.awaitTermination()
+
+
+    def _debug_console_df(self, df):
+        """"""
+        # DEBUG: escribir en consola
+        query = (
+            df.writeStream
+            .outputMode("append")
+            .format("console")
+            .option("truncate", False)
+            .start()
+        )
+
+        query.awaitTermination()
+
+
     def _read_votes_from_kafka(self):
         """"""
         return (
             self.spark.readStream
             .format("kafka")
             .option("kafka.bootstrap.servers", "localhost:9092")
-            .option("subscribe", "votes_raw")
+            .option("subscribe", "votes_raw_v02")
             .option("startingOffsets", "latest")
+            .option("failOnDataLoss", "false")
             .load()
         )
 
@@ -63,90 +140,29 @@ class StreamingJob:
         )
 
 
-    # def write_debug_csv(df, batch_id):
-    #     (
-    #         df
-    #         .coalesce(1)
-    #         .write
-    #         .mode("append")
-    #         .option("header", "true")
-    #         .csv("file:///tmp/debug_votes")
-    #     )
-
-
-    def execute_job(self):
+    def _write_on_datalake(self, df, layer_path, checkpoint_path):
         """"""
-        raw_df = self._read_votes_from_kafka()
-        votes_df = self._parse_votes(raw_df)
-
-        # DEBUG: escribir en consola
-        query = (
-            votes_df.writeStream
+        return (
+            df
+            .writeStream
+            .format("parquet")
+            .option("path", layer_path)
+            .option("checkpointLocation", checkpoint_path)
             .outputMode("append")
-            .format("console")
-            .option("truncate", False)
             .start()
         )
 
-        query.awaitTermination()
 
-        # bronze_df = (
-        #     raw_df
-        #     .selectExpr(
-        #         "CAST(value AS STRING) AS raw_json",
-        #         "timestamp AS kafka_timestamp"
-        #     )
-        # )
-        # bronze_query = (
-        #     bronze_df
-        #     .writeStream
-        #     .format("parquet")
-        #     .option("path", DataLakeConfig.BRONZE_PATH)
-        #     .option("checkpointLocation", DataLakeConfig.CHECKPOINT_BRONZE)
-        #     .outputMode("append")
-        #     .start()
-        # )
-        #
-        # bronze_query.awaitTermination()
-
-        # silver_df = (
-        #     bronze_df
-        #     .withColumn("vote", from_json(col("raw_json"), vote_schema))
-        #     .select("vote.*", "kafka_timestamp")
-        #     .filter(col("id").isNotNull())
-        # )
-        #
-        # silver_query = (
-        #     silver_df
-        #     .writeStream
-        #     .format("parquet")
-        #     .option("path", "datalake/silver/votes")
-        #     .option("checkpointLocation", "checkpoints/silver/votes")
-        #     .outputMode("append")
-        #     .start()
-        # )
-        #
-        # votes_by_party = (
-        #     silver_df
-        #     .withWatermark("timestamp", "30 seconds")
-        #     .groupBy(
-        #         window("timestamp", "10 seconds"),
-        #         col("political_party")
-        #     )
-        #     .agg(count("*").alias("votes"))
-        # )
-        #
-        # votes_by_province = (
-        #     silver_df
-        #     .withWatermark("timestamp", "30 seconds")
-        #     .groupBy(
-        #         window("timestamp", "10 seconds"),
-        #         col("province_code")
-        #     )
-        #     .count()
-        # )
-        #
-        # votes_by_party.writeStream \
-        #     .format("console") \
-        #     .outputMode("update") \
-        #     .start()
+    def _write_to_elasticsearch(self, batch_df, batch_id):
+        """"""
+        (
+            batch_df
+            .write
+            .format("org.elasticsearch.spark.sql")
+            .option("es.nodes", "localhost")
+            .option("es.port", "9200")
+            .option("es.resource", "votes_01")
+            .option("es.nodes.wan.only", "true")
+            .mode("append")
+            .save()
+        )
