@@ -3,6 +3,34 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-01-10
+### Added
+- Spark will be executed from docker container
+- /mnt folder as a temporally checpoint location 
+- spark version and elasticsearch version on .env file. Maybe will be removed in future as now the version is installed on docker container and not locally
+- file generation/db/get_db_information.py: for managing db information and be able to be accessible in one python object
+- generation/utils/boundary_objects.py: New atributes on class AutonomousRegion, new classes: Country, PoliticalParty and Parties for managing database information
+- file generation/utils/kafka.py. Script for managing Kafka utilities and configuration
+- connect/Dockerfile: docker file for connect image: install elasticsearch connector plugin
+- pymodules/Dockerfile: docker file for spark configuration. Util for install pymodules on docker image.
+- pymodules/requirements.txt: requirements file for add pymodules to be installed on docker container
+- streaming/jobs/new_votes_streaming: script for running the spark job from the docker image and not locally. In a future version it will replace the current "votes_streaming_job.py" file.
+ It is not yet connected to Elasticsearch due to several technic issues.
+### Changed
+- docker-compose.yaml: new images structure:
+  - Adding spark images: for launching, master and workers (one master and two workers)
+  - Kafka: controller and broker (for now one broker and one controller)
+  - schema registry is now working
+  - console will be redpanda image
+  - connect image. Maybe remove in future as elasticsearch connector plugin is failing
+  - network name: "votes" for "bigdata"
+- Renaming "python" folder name for "generation"
+- generation/votes_generator/vote_generator.py: script adapted to new classes and scripts implemented
+- streaming/schemas/vote_schema.py: adding iso_3166_2 code for province and region
+### Removed
+- confluent/control-center image for topic gui use
+- zookeper image, now using Kraft
+
 ## [0.7.0] - 2025-12-30
 ### Added
 - /streaming/jobs/run_job.py: file for running spark job
