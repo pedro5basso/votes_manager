@@ -6,17 +6,19 @@
 .venv
 
 # .evn for mysql connection
-python/.env
+generation/.env
 
 # __pychache__ files
-python/__pycache__/
-python/db/__pycache__/
-python/utils/__pycache__/
-python/votes_generator/__pycache__/
+generation/__pycache__/
+generation/db/__pycache__/
+generation/utils/__pycache__/
+generation/votes_generator/__pycache__/
 
 # logs: file and folder
-python/votes_generator/logs
-python/votes_generator/logs/votes_generator.log
+generation/votes_generator/logs
+generation/votes_generator/logs/votes_generator.log
+logs
+logs/votes_generator.log
 
 # streaming zip
 streaming.zip
@@ -26,3 +28,5 @@ datalake
 checkpoints
 datalake/*
 checkpoints/*
+mnt
+mnt/*

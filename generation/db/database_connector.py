@@ -4,7 +4,7 @@ import mysql.connector
 from dotenv import load_dotenv
 from mysql.connector import Error
 
-from python.utils.logging_config import setup_logging
+from generation.utils.logging_config import setup_logging
 
 load_dotenv()
 

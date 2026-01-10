@@ -14,6 +14,7 @@ class Province:
     latitude: float
     longitude: float
     population: int
+    iso_3166_2_code: str
 
 
 @dataclass
@@ -23,6 +24,7 @@ class AutonomousRegion:
     alternative_name: str
     senators: int
     total_seats: int
+    iso_3166_2_code: str
     provinces: List[Province]
 
 

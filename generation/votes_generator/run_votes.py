@@ -1,5 +1,5 @@
-from python.db.database_connector import MySQLClient, MySQLConfig
-from python.votes_generator.vote_generator import VoteGenerator, VoteConfiguration
+from generation.db.database_connector import MySQLClient, MySQLConfig
+from generation.votes_generator.vote_generator import VoteGenerator, VoteConfiguration
 
 if __name__ == "__main__":
 

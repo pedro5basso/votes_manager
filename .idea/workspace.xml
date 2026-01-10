@@ -5,12 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/generation/utils/kafka.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generation/votes_generator/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streaming/connect/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streaming/jobs/new_votes_streaming_job.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streaming/pymodules/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streaming/pymodules/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/votes_generator.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/votes_generator.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/python/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/db/get_db_information.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/db/get_db_information.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/utils/boundary_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/utils/boundary_objects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python/votes_generator/vote_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/votes_generator/vote_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/votes_generator.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/generation/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/db/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/db/database_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/db/database_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/db/get_db_information.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/db/get_db_information.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/db/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/utils/boundary_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/utils/boundary_objects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/utils/logging_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/utils/logging_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/votes_generator/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/votes_generator/run_votes.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/run_votes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/votes_generator/vote_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/streaming/schemas/vote_schema.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/schemas/vote_schema.py" afterDir="false" />
     </list>
@@ -23,6 +37,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -43,6 +58,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.display_df.executor&quot;: &quot;Run&quot;,
+    &quot;Python.kafka.executor&quot;: &quot;Run&quot;,
     &quot;Python.run_votes.executor&quot;: &quot;Run&quot;,
     &quot;Python.testing_operations.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -52,7 +68,34 @@
     &quot;last_opened_file_path&quot;: &quot;D:/dev/UCM-BD_DE/kafka&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\dev\UCM-BD_DE\votes_manager\streaming\pymodules" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.run_votes">
+    <configuration name="kafka" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="votes_manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/generation/utils" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generation/utils/kafka.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="run_votes" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="votes_manager" />
       <option name="ENV_FILES" value="" />
@@ -62,11 +105,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python/votes_generator" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/generation/votes_generator" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python/votes_generator/run_votes.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generation/votes_generator/run_votes.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -75,9 +118,14 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.kafka" />
+      <item itemvalue="Python.run_votes" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.run_votes" />
+        <item itemvalue="Python.kafka" />
       </list>
     </recent_temporary>
   </component>
@@ -100,6 +148,14 @@
     <servers />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jobs/new_votes_streaming_job.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="cont.regions[2]" language="Python" />

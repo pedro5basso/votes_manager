@@ -6,8 +6,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
 load_dotenv()
-from python.utils.logging_config import setup_logging
-from python.votes_generator.vote_generator import VoteConfiguration
+from generation.utils.logging_config import setup_logging
+from generation.votes_generator.vote_generator import VoteConfiguration
 from streaming.schemas.vote_schema import vote_schema
 
 setup_logging(logging.INFO)
