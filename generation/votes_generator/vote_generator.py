@@ -8,11 +8,12 @@ import uuid
 from datetime import datetime
 from typing import Dict, List
 
-from confluent_kafka import SerializingProducer
 from faker import Faker
 
-from python.utils.logging_config import setup_logging
-from python.utils.boundary_objects import AutonomousRegion, Province
+from generation.utils.logging_config import setup_logging
+from generation.db.get_db_information import DataBaseInformationObject
+from generation.utils.boundary_objects import Province, AutonomousRegion
+from generation.utils.kafka import KafkaUtils, KafkaConfiguration
 
 fake = Faker()
 
@@ -24,23 +25,12 @@ class VoteConfiguration:
     # Total votes to generate
     COUNTRY_POBLATION = 50000000
     PERCENT_VOTE = 0.6
+    VOTES_PER_SECOND = 100
     # TOTAL_VOTES = int(COUNTRY_POBLATION * PERCENT_VOTE)
     TOTAL_VOTES = 1000
-
-    # num of partitions for the topic
-    MESSAGE_SIZE_BYTES = 500
-    BYTES_TO_MB = 1024*1024
-    VOTES_PER_SECOND = 100
-    MB_PER_SECOND_PRODUCTION = (VOTES_PER_SECOND * MESSAGE_SIZE_BYTES) / BYTES_TO_MB
-    MB_PER_KAFKA_PARTITION = 7.5
-    _NUM_PARTITIONS = MB_PER_SECOND_PRODUCTION/MB_PER_KAFKA_PARTITION
-    NUM_PARTITIONS = math.ceil(_NUM_PARTITIONS) if int(_NUM_PARTITIONS) else 1
-
-    TOPIC_NAME = "votes_raw_v02"
-    KAFKA_PORT = "localhost:9092"
-
     BLANK_VOTE_PROVABILITY = 0.01
     GENERATE_CSV_FILE = True
+
 
 class VoteGenerator:
 
@@ -56,58 +46,31 @@ class VoteGenerator:
         - blank_vote_probability: probabilidad de voto en blanco
         - parties: lista de partidos ficticios
         """
-        self.db_client = database_client
+        self.db_info_object = DataBaseInformationObject(database_client)
+        # self.country = self.db_info_object.country
         self.config = configuration
-        self.votes_per_second = self.config.VOTES_PER_SECOND
-        self.blank_vote_probability = self.config.BLANK_VOTE_PROVABILITY
 
-        self.parties = [
-            "Gato Unido",
-            "Perro Liberal",
-            "Lechuga Verde",
-            "Pepino Social",
-            "Tiburon Popular",
-            "Aguila Nacional",
-            "Conejo Federal"
-        ]
+        self.parties = self.db_info_object.get_political_parties()
+        self.country = self.db_info_object.country
+        self.names_mapped = self.db_info_object.mapped_names
+        self.iso_codes_mapped = self.db_info_object.mapped_iso_codes
+
+        self.kafka_utils = KafkaUtils()
 
         self.running = False
         self.provinces: List[Province] = []
         self.weighted_provinces: List[Province] = []  # provinces repeated by pop weight
-        self.autonomic_regions: List[AutonomousRegion] = []
 
         self.load_provinces_data()
-        self.load_autonomic_regions_data()
 
 
     def load_provinces_data(self):
         """"""
-        log.info("[VotesGenerator]: Loading provinces from MySQL...")
+        for region in self.country.regions:
+            for province in region.provinces:
+                self.provinces.append(province)
 
-        query = "SELECT * FROM provincias"
-
-        self.db_client.connect()
-        rows = self.db_client.fetch_all(query)
-        self.db_client.disconnect()
-
-        self.provinces = [
-            Province(
-                id=row['id'],
-                code_province=row['codigo_provincia'],
-                name=row['nombre'],
-                alternative_name=row['nombre_alternativo'],
-                autonomic_region_code=row['codigo_comunidad'],
-                total_seats=row['total_diputados'],
-                latitude=row['latitud'],
-                longitude=row['longitud'],
-                population=row['habitantes']
-            )
-            for row in rows
-        ]
-
-        log.info(f"[VotesGenerator]: Total Provinces Loaded: {len(self.provinces)}")
-
-        # ------ Pesos por población ------
+        # population weights
         self._build_population_weights()
         log.info(f"[VotesGenerator]: Population weights (expanded list): {len(self.weighted_provinces)}")
 
@@ -122,55 +85,31 @@ class VoteGenerator:
             self.weighted_provinces.extend([p] * weight)
 
 
-    def load_autonomic_regions_data(self):
-        """"""
-        log.info("[VotesGenerator]: Loading Autonomic Regions from MySQL...")
-
-        query = "SELECT * FROM comunidades_autonomas"
-
-        self.db_client.connect()
-        rows = self.db_client.fetch_all(query)
-        self.db_client.disconnect()
-
-        self.autonomic_regions = [
-            AutonomousRegion(
-                code=row['codigo_comunidad'],
-                name=row['nombre'],
-                alternative_name=row['nombre_alternativo']
-            )
-            for row in rows
-        ]
-
-        log.info(f"[VotesGenerator]: Autonomic regions loaded: {len(self.autonomic_regions)}")
-
-
     def generate_vote(self) -> Dict:
         """"""
         province = random.choice(self.weighted_provinces)
-        autonomic_region = self._get_autonomic_region_from_province(province.autonomic_region_code)
 
-        autonomic_name = autonomic_region.alternative_name if autonomic_region.alternative_name else autonomic_region.name
+        autonomic_name = self.names_mapped.get(province.name)
+        autonomic_iso_code = self.iso_codes_mapped.get(province.name)
 
-        blank_vote = random.random() < self.blank_vote_probability
+        location = f"{province.latitude},{province.longitude}"
+
+        blank_vote = random.random() < self.config.BLANK_VOTE_PROVABILITY
         political_party = None if blank_vote else random.choice(self.parties)
 
         vote = {
             "id": str(uuid.uuid4()),
             "blank_vote": blank_vote,
             "political_party": political_party,
-            "province_code": province.code_province,
             "province_name": province.name,
+            "province_iso_code": province.iso_3166_2_code,
             "autonomic_region_name": autonomic_name,
+            "autonomic_region_iso_code": autonomic_iso_code,
+            "location": location,
             "timestamp": datetime.utcnow().isoformat()
         }
 
         return vote
-
-    def _get_autonomic_region_from_province(self, province_ar):
-        """"""
-        for aut_reg in self.autonomic_regions:
-            if aut_reg.code == province_ar:
-                return aut_reg
 
 
     def start(self):
@@ -182,43 +121,36 @@ class VoteGenerator:
             if err:
                 log.error(f"[VotesGenerator]: Delivery failed: {err}")
             else:
-                log.debug(
+                log.info(
                     f"[VotesGenerator]: Message delivered to {msg.topic()} [{msg.partition()}]"
                 )
 
         self.running = True
-        interval = 1 / self.votes_per_second
+        interval = 1 / self.config.VOTES_PER_SECOND
 
-        log.info(f"[VotesGenerator]: --- Generando votos en tiempo real ---")
-        log.info(f"[VotesGenerator]: Velocidad: {self.votes_per_second} votos/segundo")
+        producer = self.kafka_utils.get_kafka_producer()
+
+        log.info(f"[VotesGenerator]: --- Generating real time votes ---")
+        log.info(f"[VotesGenerator]: Velocity: {self.config.VOTES_PER_SECOND} votes/second")
         log.info(f"[VotesGenerator]: Intervalo: {interval:.6f} s\n")
 
         counter_votes = 0
         votes_history = list()
 
-        producer = SerializingProducer({
-            'bootstrap.servers': self.config.KAFKA_PORT
-            # 'on_delivery': delivery_report
-        })
-
         try:
-
             while self.running:
                 vote = self.generate_vote()
                 # print(vote)
 
                 # send vote to kafka
                 producer.produce(
-                    self.config.TOPIC_NAME,
-                    key=vote['province_code'],
+                    KafkaConfiguration.TOPIC_NAME,
+                    key=vote['province_iso_code'],
                     value=json.dumps(vote),
-                    on_delivery=delivery_report
+                    on_delivery=self.kafka_utils.delivery_report
                 )
                 producer.poll(0)
-                producer.flush()
-
                 votes_history.append(vote)
-
                 time.sleep(interval)
 
                 if self.config.TOTAL_VOTES and counter_votes > self.config.TOTAL_VOTES:
@@ -232,8 +164,12 @@ class VoteGenerator:
         except Exception as e:
             log.error(f"[VotesGenerator]: Error generating votes: {e}")
 
-        if self.config.GENERATE_CSV_FILE:
-            self._generate_csv_file(votes_history)
+        finally:
+            log.info("[VotesGenerator]: Flushing remaining messages...")
+            producer.flush()
+
+            if self.config.GENERATE_CSV_FILE:
+                self._generate_csv_file(votes_history)
 
 
     def stop(self):
@@ -244,7 +180,8 @@ class VoteGenerator:
         """"""
         path = r"D:\tmp\votes\votes.csv"
         if not list_votes:
-            raise ValueError("Empy votes list")
+            log.error(f"[VotesGenerator]: Votes list is empty, not able to create a csv file...")
+            return
 
         headers = set()
         for d in list_votes:
