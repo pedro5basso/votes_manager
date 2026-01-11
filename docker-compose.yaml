@@ -106,6 +106,7 @@ services:
     container_name: connect
     depends_on:
       - kafka-broker-1
+      - elasticsearch
     ports:
       - "8083:8083"
     environment:
@@ -122,11 +123,18 @@ services:
 
       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+
       CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
 
       CONNECT_REST_ADVERTISED_HOST_NAME: connect
       CONNECT_REST_PORT: 8083
+
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components
+
     networks:
       - votes
 
@@ -171,6 +179,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.2
     container_name: elasticsearch
     environment:
+      - node.name=elastic
       - discovery.type=single-node
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms2g -Xmx2g

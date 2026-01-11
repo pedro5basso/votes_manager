@@ -8,31 +8,10 @@ CHECKPOINT_DIR = '/mnt/spark-checkpoints'
 STATES = '/mnt/spark-state'
 
 
-def write_to_elasticsearch(batch_df, batch_id):
-    """"""
-    es_conf = {
-        "es.nodes": "elasticsearch",
-        "es.port": "9200",
-        "es.nodes.wan.only": "true",
-        "es.index.auto.create": "true"
-    }
-
-    (
-        batch_df.write
-        .format("org.elasticsearch.spark.sql")
-        .mode("append")
-        .options(**es_conf)
-        .option("es.resource", "votes_index")
-        .option("es.mapping.id", "doc_id")
-        .option("es.write.operation", "index")
-        .save()
-    )
-
-
 spark = (
         SparkSession.builder
         .appName("Testing")
-        .config('spark.jars.packages', 'org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.6,org.elasticsearch:elasticsearch-spark-30_2.12:8.13.2')
+        .config('spark.jars.packages', 'org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.6')
         .config('spark.sql.streaming.checkpointLocation', CHECKPOINT_DIR)
         .config('spark.sql.streaming.stateStore.stateStoreDir', STATES)
         .config('spark.sql.shuffle.partitions', 20)
@@ -94,30 +73,38 @@ _votes_with_id_df = (
     )
 )
 
-
-query = (
+aggregation_query = (
     _votes_with_id_df
+    .withColumn("key",
+        F.to_json(
+        F.struct(
+            F.col("doc_id").cast("string").alias("id")
+        )
+    ))
+    .withColumn(
+        "value",
+        F.to_json(
+            F.struct(
+                F.col("doc_id").alias("doc_id"),
+                F.col("id").cast("string"),
+                "political_party",
+                "location",
+                "timestamp",
+                "province_iso_code",
+                "province_name",
+                "blank_vote",
+                "autonomic_region_iso_code",
+                "autonomic_region_name",
+            )
+        )
+    )
+    .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
     .writeStream
-    .foreachBatch(write_to_elasticsearch)
+    .format("kafka")
     .outputMode("append")
-    .option("checkpointLocation", f"{CHECKPOINT_DIR}/vote_index")
-    .start().awaitTermination()
+    .option("kafka.bootstrap.servers", KafkaConfiguration.KAFKA_BROKER_DOCKER)
+    .option("topic", KafkaConfiguration.AGGREGATED_TOPIC)
+    .option("checkpointLocation", f"{CHECKPOINT_DIR}/aggregated")
+    .start()
 )
-
-# aggregation_query = aggregated_df.withColumn("key", F.col("political_party").cast("string")) \
-#     .withColumn("value", F.to_json(F.struct(
-#         F.col("political_party"),
-#         F.col("location"),
-#         F.col("timestamp"),
-#         F.col("province_iso_code"),
-#         F.col("province_name"),
-#         F.col("autonomic_region_iso_code"),
-#         F.col("autonomic_region_name")
-#     ))).selectExpr("key", "value") \
-#         .writeStream \
-#         .format('kafka') \
-#         .outputMode('update') \
-#         .option('kafka.bootstrap.servers', KafkaConfiguration.KAFKA_BROKER_DOCKER) \
-#         .option('topic', KafkaConfiguration.AGGREGATED_TOPIC) \
-#         .option('checkpointLocation', f'{CHECKPOINT_DIR}/aggregates') \
-#         .start().awaitTermination()
+aggregation_query.awaitTermination()

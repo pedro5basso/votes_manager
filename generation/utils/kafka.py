@@ -25,21 +25,26 @@ class KafkaUtils:
         """"""
         pass
 
+    def create_topics(self):
+        """"""
+        for topic_name in [KafkaConfiguration.TOPIC_NAME, KafkaConfiguration.AGGREGATED_TOPIC]:
+            self._create_topic(topic_name)
 
-    def create_topic(self):
+
+    def _create_topic(self, topic_name):
         """"""
         admin = AdminClient({"bootstrap.servers": KafkaConfiguration.KAFKA_BROKER_LOCAL})
 
         metadata = admin.list_topics(timeout=10)
 
-        if KafkaConfiguration.TOPIC_NAME in metadata.topics:
-            log.info(f"[KafkaUtils]: Topic '{KafkaConfiguration.TOPIC_NAME}' already exists, returning")
+        if topic_name in metadata.topics:
+            log.info(f"[KafkaUtils]: Topic '{topic_name}' already exists, returning")
             return True
 
-        log.info(f"[KafkaUtils]: Creating topic '{KafkaConfiguration.TOPIC_NAME}'...")
+        log.info(f"[KafkaUtils]: Creating topic '{topic_name}'...")
 
         new_topic = NewTopic(
-            topic=KafkaConfiguration.TOPIC_NAME,
+            topic=topic_name,
             num_partitions=KafkaConfiguration.NUM_PARTITIONS,
             replication_factor=KafkaConfiguration.REPLICATION_FACTOR,
         )
@@ -50,7 +55,7 @@ class KafkaUtils:
             try:
                 future.result()
                 log.info(f"[KafkaUtils]: Topic '{topic}' created succesfully")
-                log.info("Waiting 5 seconds for metadata propagation...")
+                log.info("[KafkaUtils]: Waiting 5 seconds for metadata propagation...")
                 time.sleep(5)
             except KafkaException as e:
                 log.error(f"[KafkaUtils]: Error creating topic '{topic}': {e}")
@@ -81,8 +86,3 @@ class KafkaUtils:
             log.info(
                 f"[KafkaUtils]: Message delivered to {msg.topic()} [{msg.partition()}]"
             )
-
-
-if __name__ == '__main__':
-    kafka_utils = KafkaUtils()
-    _ = kafka_utils.create_topic()
