@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [0.9.0] - 2026-01-10
+## [0.9.0] - 2026-01-13
 ### Added
 - generation/utils/generate_topics.py: new python script for creating all kafka topics related
 - streaming/connect/Dockerfile: file for connect elasticsearch with kafka
