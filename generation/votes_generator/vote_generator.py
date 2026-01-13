@@ -29,7 +29,7 @@ class VoteConfiguration:
     # TOTAL_VOTES = int(COUNTRY_POBLATION * PERCENT_VOTE)
     TOTAL_VOTES = 1000
     BLANK_VOTE_PROVABILITY = 0.01
-    GENERATE_CSV_FILE = True
+    GENERATE_CSV_FILE = False
 
 
 class VoteGenerator:
@@ -51,6 +51,7 @@ class VoteGenerator:
         self.config = configuration
 
         self.parties = self.db_info_object.get_political_parties()
+        self._build_party_weights()
         self.country = self.db_info_object.country
         self.names_mapped = self.db_info_object.mapped_names
         self.iso_codes_mapped = self.db_info_object.mapped_iso_codes
@@ -95,7 +96,7 @@ class VoteGenerator:
         location = f"{province.latitude},{province.longitude}"
 
         blank_vote = random.random() < self.config.BLANK_VOTE_PROVABILITY
-        political_party = None if blank_vote else random.choice(self.parties)
+        political_party = None if blank_vote else self._choose_party()
 
         vote = {
             "id": str(uuid.uuid4()),
@@ -194,3 +195,12 @@ class VoteGenerator:
             writer.writerows(list_votes)
 
         log.info(f"[VotesGenerator]: File created succesfully at {path}")
+
+    def _build_party_weights(self):
+        """"""
+        self._party_names = [p["name"] for p in self.parties]
+        self._party_weights = [p["popularity"] for p in self.parties]
+
+    def _choose_party(self):
+        """"""
+        return random.choices(self._party_names, weights=self._party_weights, k=1)[0]

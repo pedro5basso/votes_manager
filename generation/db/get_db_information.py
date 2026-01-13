@@ -4,6 +4,7 @@ from typing import List
 
 from generation.utils.boundary_objects import Province, AutonomousRegion, Country, PoliticalParty, Parties
 from generation.utils.logging_config import setup_logging
+from generation.utils.political_parties import political_parties
 
 setup_logging(logging.INFO)
 
@@ -116,12 +117,4 @@ class DataBaseInformationObject:
 
     def get_political_parties(self) -> List[str]:
         """"""
-        return [
-            "Gato Unido",
-            "Perro Liberal",
-            "Lechuga Verde",
-            "Pepino Social",
-            "Tiburon Popular",
-            "Aguila Nacional",
-            "Conejo Federal"
-        ]
+        return political_parties
