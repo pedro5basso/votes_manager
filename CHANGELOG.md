@@ -3,6 +3,23 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-01-10
+### Added
+- generation/utils/generate_topics.py: new python script for creating all kafka topics related
+- streaming/connect/Dockerfile: file for connect elasticsearch with kafka
+- streaming/connect/sink-elasticsearch-votes.json: Elasticsearch sink connector
+### Changed
+- docker-compose.yaml:
+  - connect container: 
+    - adding dependency on elasticsearch image.
+    - adding CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE, CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE, CONNECT_PLUGIN_PATH on environment
+  - elasticsearch conatiner:
+    - adding node.name=elastic on envirnoment
+- generation/utils/kafka.py: adapting logic to new script generate_topics.py
+- streaming/jobs/new_votes_streaming_job.py: updating logic to connect with Elasticsearch
+  
+### Removed
+
 ## [0.8.0] - 2026-01-10
 ### Added
 - Spark will be executed from docker container
