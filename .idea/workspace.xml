@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
@@ -17,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Dockerfile" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -39,12 +39,13 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.display_df.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_topics.executor&quot;: &quot;Run&quot;,
     &quot;Python.kafka.executor&quot;: &quot;Run&quot;,
     &quot;Python.run_votes.executor&quot;: &quot;Run&quot;,
     &quot;Python.testing_operations.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/upgrading-dashboard&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/connect-spark-with-elasticsearch&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/dev/UCM-BD_DE/kafka&quot;
   }
@@ -55,7 +56,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.run_votes">
-    <configuration name="kafka" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="generate_topics" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="votes_manager" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -68,7 +69,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generation/utils/kafka.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generation/utils/generate_topics.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -100,13 +101,13 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.kafka" />
+      <item itemvalue="Python.generate_topics" />
       <item itemvalue="Python.run_votes" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.run_votes" />
-        <item itemvalue="Python.kafka" />
+        <item itemvalue="Python.generate_topics" />
       </list>
     </recent_temporary>
   </component>

@@ -1,0 +1,17 @@
+{
+    "name": "elasticsearch-sink-connector",
+    "config": {
+      "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+      "topics": "votes",
+      "connection.url": "http://elasticsearch:9200",
+
+      "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "key.converter.schemas.enable": "false",
+      "key.ignore": "true",
+
+      "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable": "false",
+
+      "schema.ignore": "true"
+    }
+}
