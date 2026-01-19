@@ -1,7 +1,7 @@
 import logging
 import time
 
-from confluent_kafka import SerializingProducer, KafkaException, Producer
+from confluent_kafka import KafkaException, Producer
 from confluent_kafka.admin import AdminClient, NewTopic
 
 from generation.utils.logging_config import setup_logging
@@ -12,11 +12,17 @@ log = logging.getLogger(__name__)
 
 class KafkaConfiguration:
     NUM_PARTITIONS = 3
-    REPLICATION_FACTOR = 1 # proporción 1:1 con el num de brokers
-    TOPIC_NAME = "votes_raw"
+    REPLICATION_FACTOR = 1
     KAFKA_BROKER_DOCKER = "kafka-broker-1:19092"
     KAFKA_BROKER_LOCAL = "localhost:29092"
-    AGGREGATED_TOPIC = "votes"
+    TOPIC_VOTES_RAW = "votes_raw"
+    TOPIC_VOTES_CLEAN = "votes_clean"
+    TOPIC_VOTES_SEATS_PROVINCES = "votes_seats_provinces"
+    TOPICS = [
+        (TOPIC_VOTES_RAW, False),
+        (TOPIC_VOTES_CLEAN, False),
+        (TOPIC_VOTES_SEATS_PROVINCES, True)
+    ]
 
 
 class KafkaUtils:
@@ -27,11 +33,11 @@ class KafkaUtils:
 
     def create_topics(self):
         """"""
-        for topic_name in [KafkaConfiguration.TOPIC_NAME, KafkaConfiguration.AGGREGATED_TOPIC]:
-            self._create_topic(topic_name)
+        for topic_name, cleanup_policy_flag in KafkaConfiguration.TOPICS:
+            self._create_topic(topic_name, cleanup_policy_flag)
 
 
-    def _create_topic(self, topic_name):
+    def _create_topic(self, topic_name, cleanup_policy_flag):
         """"""
         admin = AdminClient({"bootstrap.servers": KafkaConfiguration.KAFKA_BROKER_LOCAL})
 
@@ -43,10 +49,16 @@ class KafkaUtils:
 
         log.info(f"[KafkaUtils]: Creating topic '{topic_name}'...")
 
+        cleanup_policy = "compact" if cleanup_policy_flag else "delete"
+        config = {
+            "cleanup.policy": cleanup_policy
+        }
+
         new_topic = NewTopic(
             topic=topic_name,
             num_partitions=KafkaConfiguration.NUM_PARTITIONS,
             replication_factor=KafkaConfiguration.REPLICATION_FACTOR,
+            config=config
         )
 
         futures = admin.create_topics([new_topic])
@@ -68,7 +80,9 @@ class KafkaUtils:
         """"""
         producer_config = {
             'bootstrap.servers': KafkaConfiguration.KAFKA_BROKER_LOCAL,
-            'batch.num.messages': 1000,
+            'retries': 3,
+            'batch.num.messages': 500,
+            'queue.buffering.max.messages':  1000,
             'linger.ms': 10,
             'compression.type': 'gzip'
         }
@@ -82,7 +96,3 @@ class KafkaUtils:
     def delivery_report(err, msg):
         if err:
             log.error(f"[KafkaUtils]: Delivery failed: {err}")
-        else:
-            log.info(
-                f"[KafkaUtils]: Message delivered to {msg.topic()} [{msg.partition()}]"
-            )

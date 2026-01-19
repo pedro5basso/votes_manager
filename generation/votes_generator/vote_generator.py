@@ -8,14 +8,11 @@ import uuid
 from datetime import datetime
 from typing import Dict, List
 
-from faker import Faker
-
 from generation.utils.logging_config import setup_logging
 from generation.db.get_db_information import DataBaseInformationObject
 from generation.utils.boundary_objects import Province, AutonomousRegion
 from generation.utils.kafka import KafkaUtils, KafkaConfiguration
 
-fake = Faker()
 
 setup_logging(logging.INFO)
 
@@ -23,11 +20,8 @@ log = logging.getLogger(__name__)
 
 class VoteConfiguration:
     # Total votes to generate
-    COUNTRY_POBLATION = 50000000
-    PERCENT_VOTE = 0.6
-    VOTES_PER_SECOND = 100
-    # TOTAL_VOTES = int(COUNTRY_POBLATION * PERCENT_VOTE)
     TOTAL_VOTES = 1000
+    VOTES_PER_SECOND = 100
     BLANK_VOTE_PROVABILITY = 0.01
     GENERATE_CSV_FILE = False
 
@@ -118,14 +112,6 @@ class VoteGenerator:
         por defecto: imprime en pantalla
         """
 
-        def delivery_report(err, msg):
-            if err:
-                log.error(f"[VotesGenerator]: Delivery failed: {err}")
-            else:
-                log.info(
-                    f"[VotesGenerator]: Message delivered to {msg.topic()} [{msg.partition()}]"
-                )
-
         self.running = True
         interval = 1 / self.config.VOTES_PER_SECOND
 
@@ -145,12 +131,12 @@ class VoteGenerator:
 
                 # send vote to kafka
                 producer.produce(
-                    KafkaConfiguration.TOPIC_NAME,
-                    key=vote['province_iso_code'],
+                    KafkaConfiguration.TOPIC_VOTES_RAW,
+                    key=vote['id'],
                     value=json.dumps(vote),
                     on_delivery=self.kafka_utils.delivery_report
                 )
-                producer.poll(0)
+                producer.poll(0.1)
                 votes_history.append(vote)
                 time.sleep(interval)
 
@@ -169,32 +155,10 @@ class VoteGenerator:
             log.info("[VotesGenerator]: Flushing remaining messages...")
             producer.flush()
 
-            if self.config.GENERATE_CSV_FILE:
-                self._generate_csv_file(votes_history)
-
 
     def stop(self):
         self.running = False
 
-
-    def _generate_csv_file(self, list_votes):
-        """"""
-        path = r"D:\tmp\votes\votes.csv"
-        if not list_votes:
-            log.error(f"[VotesGenerator]: Votes list is empty, not able to create a csv file...")
-            return
-
-        headers = set()
-        for d in list_votes:
-            headers.update(d.keys())
-        headers = list(headers)
-
-        with open(path, mode="w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, fieldnames=headers)
-            writer.writeheader()
-            writer.writerows(list_votes)
-
-        log.info(f"[VotesGenerator]: File created succesfully at {path}")
 
     def _build_party_weights(self):
         """"""

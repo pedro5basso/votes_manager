@@ -5,10 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/generation/utils/political_parties.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streaming/connect/sink-elasticsearch-seats.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streaming/datalake/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streaming/datalake/datalake_configuration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generation/db/get_db_information.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/db/get_db_information.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/utils/kafka.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/utils/kafka.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stream.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming/connect/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/connect/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming/connect/sink-elasticsearch-votes.json" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/connect/sink-elasticsearch-votes.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming/jobs/new_votes_streaming_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/new_votes_streaming_job.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming/pymodules/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/pymodules/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming/schemas/vote_schema.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/schemas/vote_schema.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,20 +48,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.display_df.executor": "Run",
-    "Python.generate_topics.executor": "Run",
-    "Python.kafka.executor": "Run",
-    "Python.run_votes.executor": "Run",
-    "Python.testing_operations.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feat/adding-seats-implementation",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/dev/UCM-BD_DE/kafka"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.coordenates.executor&quot;: &quot;Run&quot;,
+    &quot;Python.display_df.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_topics.executor&quot;: &quot;Run&quot;,
+    &quot;Python.kafka.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_votes.executor&quot;: &quot;Run&quot;,
+    &quot;Python.testing_operations.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/adding-seats-implementation&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/dev/UCM-BD_DE/kafka&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\dev\UCM-BD_DE\votes_manager\streaming\pymodules" />
