@@ -5,8 +5,9 @@ x-spark-common: &spark-common
   volumes:
     - ./streaming:/opt/spark/streaming
     - ./generation:/opt/spark/generation
-    - ./mnt/checkpoints:/mnt/spark-checkpoints
+    - ./mnt/checkpoints:/mnt/checkpoints
     - ./mnt/spark-state:/mnt/spark-state
+    - ./mnt/datalake:/mnt/datalake
   environment:
     PYTHONPATH: /opt/spark
   networks:
@@ -109,6 +110,8 @@ services:
       - elasticsearch
     ports:
       - "8083:8083"
+    mem_limit: 1g
+    cpus: 1.5
     environment:
       CONNECT_BOOTSTRAP_SERVERS: kafka-broker-1:19092
       CONNECT_GROUP_ID: connect-cluster
@@ -172,9 +175,6 @@ services:
   spark-worker-2:
     <<: *spark-worker-image
 
-  spark-worker-3:
-    <<: *spark-worker-image
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.2
     container_name: elasticsearch
@@ -182,7 +182,8 @@ services:
       - node.name=elastic
       - discovery.type=single-node
       - xpack.security.enabled=false
-      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    mem_limit: 1g
     ports:
       - "9200:9200"
     networks:

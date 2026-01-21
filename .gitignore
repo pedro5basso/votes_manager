@@ -18,16 +18,12 @@ generation/votes_generator/__pycache__/
 # logs: file and folder
 generation/votes_generator/logs
 generation/votes_generator/logs/votes_generator.log
-logs
-logs/votes_generator.log
 
-# streaming zip
-streaming.zip
-
-# datalake
-datalake
-checkpoints
-datalake/*
-checkpoints/*
+# Datalake and checkpoints
 mnt
 mnt/*
+
+#Testing
+streaming/pymodules/votes.csv
+streaming/jobs/test_operation_seats.py
+streaming/jobs/test_operation_seats2.py

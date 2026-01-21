@@ -38,6 +38,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Python.coordenates.executor&quot;: &quot;Run&quot;,
     &quot;Python.display_df.executor&quot;: &quot;Run&quot;,
     &quot;Python.generate_topics.executor&quot;: &quot;Run&quot;,
     &quot;Python.kafka.executor&quot;: &quot;Run&quot;,
@@ -45,7 +46,7 @@
     &quot;Python.testing_operations.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/connect-spark-with-elasticsearch&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/adding-seats-implementation&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/dev/UCM-BD_DE/kafka&quot;
   }

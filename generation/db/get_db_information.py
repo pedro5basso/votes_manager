@@ -4,6 +4,7 @@ from typing import List
 
 from generation.utils.boundary_objects import Province, AutonomousRegion, Country, PoliticalParty, Parties
 from generation.utils.logging_config import setup_logging
+from generation.utils.political_parties import political_parties
 
 setup_logging(logging.INFO)
 
@@ -113,15 +114,16 @@ class DataBaseInformationObject:
         return iso_codes_mapped
 
 
-
     def get_political_parties(self) -> List[str]:
         """"""
-        return [
-            "Gato Unido",
-            "Perro Liberal",
-            "Lechuga Verde",
-            "Pepino Social",
-            "Tiburon Popular",
-            "Aguila Nacional",
-            "Conejo Federal"
-        ]
+        return political_parties
+
+
+    def get_seats_by_province(self) -> List[tuple]:
+        """"""
+        seats_by_country = list()
+        for region in self._country.regions:
+            for province in region.provinces:
+                seats_by_country.append((province.name, province.total_seats))
+
+        return seats_by_country

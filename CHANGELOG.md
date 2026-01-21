@@ -3,7 +3,37 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [0.9.0] - 2026-01-10
+## [0.10.0] - 2026-01-21
+### Added
+- .gitignore:
+  - mnt/ folder as a new folder for datalake and spark checkpoints
+- generation/utils/kafka.py: New topics added. Adapting method for creating all topics at once. Updating few topics and 
+producer configuration
+- generation/utils/political_parties.py: new script for managing political parties info and being easier to adapt. All 
+Political parties includes now popularity.
+- streaming/connect/sink-elasticsearch-seats.json: connector for seats topics
+- streaming/datalake/datalake_configuration.py: script for managing datalake and checkpoint locations
+### Changed
+- .gitignore: 
+  - removing old datalake and checkpoints folder.
+  - removing streaming.zip file used to run spark on old project versions
+  - logs files as it will be managed in future on a single file
+- docker-compose.yaml:
+  - limiting memory of some images
+  - Adding paths to spark checkpoints and datalake on volumes section
+  - removing one spark worker
+- generation/db/get_db_information.py: now political parties will be on a separate script
+- generation/votes_generator/vote_generator.py: adding political party popularity logic when generating votes
+- streaming/connect/Dockerfile: adding sink-elasticsearch-seats.json connector
+- streaming/connect/sink-elasticsearch-votes.json: adapting connector to votes topic
+- streaming/jobs/new_votes_streaming_job.py: the job now computes seats. The logic has been adapted to a python class.
+- streaming/jobs/run_job.py: now running new spark job
+- streaming/pymodules/Dockerfile: adding csv votes for testing operations with spark inside docker
+- streaming/schemas/vote_schema.py: adding new schema for votes_normalized
+### Removed
+
+
+## [0.9.0] - 2026-01-13
 ### Added
 - generation/utils/generate_topics.py: new python script for creating all kafka topics related
 - streaming/connect/Dockerfile: file for connect elasticsearch with kafka
