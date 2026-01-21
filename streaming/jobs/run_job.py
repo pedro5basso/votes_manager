@@ -1,6 +1,5 @@
-from streaming.jobs.votes_streaming_job import StreamingJob
-
+from streaming.jobs.new_votes_streaming_job import SparkJob
 
 if __name__ == "__main__":
-    job = StreamingJob()
-    job.execute_job()
+    job = SparkJob()
+    job.run_job()

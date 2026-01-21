@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 
 class VoteConfiguration:
     # Total votes to generate
-    TOTAL_VOTES = 1000
+    TOTAL_VOTES = 3000
     VOTES_PER_SECOND = 100
     BLANK_VOTE_PROVABILITY = 0.01
     GENERATE_CSV_FILE = False

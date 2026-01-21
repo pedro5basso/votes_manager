@@ -5,21 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/streaming/connect/sink-elasticsearch-seats.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/streaming/datalake/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/streaming/datalake/datalake_configuration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/db/get_db_information.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/db/get_db_information.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/utils/kafka.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/utils/kafka.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/utils/logs/votes_generator.log" beforeDir="false" afterPath="$PROJECT_DIR$/generation/utils/logs/votes_generator.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stream.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/connect/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/connect/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/connect/sink-elasticsearch-votes.json" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/connect/sink-elasticsearch-votes.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/streaming/jobs/new_votes_streaming_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/new_votes_streaming_job.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/pymodules/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/pymodules/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/schemas/vote_schema.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/schemas/vote_schema.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/streaming/jobs/run_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/run_job.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

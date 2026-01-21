@@ -155,7 +155,7 @@ services:
     environment:
       PYTHONPATH: /opt/spark
 
-  spark-worker:
+  spark-worker: &spark-worker-image
     <<: *spark-common
     command: >
       /opt/spark/bin/spark-class
@@ -172,6 +172,8 @@ services:
     networks:
       - votes
 
+  spark-worker-2:
+    <<: *spark-worker-image
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.2
