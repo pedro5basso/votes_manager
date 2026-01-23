@@ -6,20 +6,21 @@ import uuid
 from datetime import datetime
 from typing import Dict, List
 
-from generation.utils.logging_config import setup_logging
 from generation.db.get_db_information import DataBaseInformationObject
 from generation.utils.boundary_objects import Province
-from generation.utils.kafka import KafkaUtils, KafkaConfiguration
-
+from generation.utils.kafka import KafkaConfiguration, KafkaUtils
+from generation.utils.logging_config import setup_logging
 
 setup_logging(logging.INFO)
 
 log = logging.getLogger(__name__)
 
+
 class VoteConfiguration:
     """
     Configuration values for vote generation behavior.
     """
+
     TOTAL_VOTES = 50
     VOTES_PER_SECOND = 100
     BLANK_VOTE_PROVABILITY = 0.01
@@ -34,11 +35,7 @@ class VoteGenerator:
     and party popularity.
     """
 
-    def __init__(
-        self,
-        database_client,
-        configuration
-    ):
+    def __init__(self, database_client, configuration):
         """
         Initializes the VoteGenerator.
 
@@ -65,7 +62,6 @@ class VoteGenerator:
 
         self.load_provinces_data()
 
-
     def load_provinces_data(self):
         """
         Loads provinces from the country object and builds population weights.
@@ -76,8 +72,9 @@ class VoteGenerator:
 
         # population weights
         self._build_population_weights()
-        log.info(f"[VotesGenerator]: Population weights (expanded list): {len(self.weighted_provinces)}")
-
+        log.info(
+            f"[VotesGenerator]: Population weights (expanded list): {len(self.weighted_provinces)}"
+        )
 
     def _build_population_weights(self):
         """
@@ -92,7 +89,6 @@ class VoteGenerator:
         for p in self.provinces:
             weight = max(1, int((p.population / total_pop) * 1000))
             self.weighted_provinces.extend([p] * weight)
-
 
     def generate_vote(self) -> Dict:
         """
@@ -124,11 +120,10 @@ class VoteGenerator:
             "autonomic_region_name": autonomic_name,
             "autonomic_region_iso_code": autonomic_iso_code,
             "location": location,
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.utcnow().isoformat(),
         }
 
         return vote
-
 
     def start(self):
         """
@@ -143,7 +138,9 @@ class VoteGenerator:
         producer = self.kafka_utils.get_kafka_producer()
 
         log.info(f"[VotesGenerator]: --- Generating real time votes ---")
-        log.info(f"[VotesGenerator]: Velocity: {self.config.VOTES_PER_SECOND} votes/second")
+        log.info(
+            f"[VotesGenerator]: Velocity: {self.config.VOTES_PER_SECOND} votes/second"
+        )
         log.info(f"[VotesGenerator]: Intervalo: {interval:.6f} s\n")
 
         counter_votes = 0
@@ -157,9 +154,9 @@ class VoteGenerator:
                 # send vote to kafka
                 producer.produce(
                     KafkaConfiguration.TOPIC_VOTES_RAW,
-                    key=vote['id'],
+                    key=vote["id"],
                     value=json.dumps(vote),
-                    on_delivery=self.kafka_utils.delivery_report
+                    on_delivery=self.kafka_utils.delivery_report,
                 )
                 producer.poll(0.1)
                 votes_history.append(vote)
@@ -180,13 +177,11 @@ class VoteGenerator:
             log.info("[VotesGenerator]: Flushing remaining messages...")
             producer.flush()
 
-
     def stop(self):
         """
         Stops the vote generation loop.
         """
         self.running = False
-
 
     def _build_party_weights(self):
         """
