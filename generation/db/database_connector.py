@@ -1,10 +1,12 @@
-import os
 import logging
+import os
+
 import mysql.connector
 from dotenv import load_dotenv
+from generation.utils.logging_config import setup_logging
 from mysql.connector import Error
 
-from generation.utils.logging_config import setup_logging
+
 
 load_dotenv()
 
