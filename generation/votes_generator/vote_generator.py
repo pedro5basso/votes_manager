@@ -1,7 +1,5 @@
-import csv
 import json
 import logging
-import math
 import random
 import time
 import uuid
@@ -10,7 +8,7 @@ from typing import Dict, List
 
 from generation.utils.logging_config import setup_logging
 from generation.db.get_db_information import DataBaseInformationObject
-from generation.utils.boundary_objects import Province, AutonomousRegion
+from generation.utils.boundary_objects import Province
 from generation.utils.kafka import KafkaUtils, KafkaConfiguration
 
 
@@ -19,14 +17,22 @@ setup_logging(logging.INFO)
 log = logging.getLogger(__name__)
 
 class VoteConfiguration:
-    # Total votes to generate
-    TOTAL_VOTES = 3000
+    """
+    Configuration values for vote generation behavior.
+    """
+    TOTAL_VOTES = 50
     VOTES_PER_SECOND = 100
     BLANK_VOTE_PROVABILITY = 0.01
     GENERATE_CSV_FILE = False
 
 
 class VoteGenerator:
+    """
+    Generates synthetic voting events and publishes them to Kafka.
+
+    Votes are generated in real time, weighted by province population
+    and party popularity.
+    """
 
     def __init__(
         self,
@@ -34,11 +40,12 @@ class VoteGenerator:
         configuration
     ):
         """
-        Params:
-        - mysql_client: tu cliente MySQL ya inicializado
-        - votes_per_second: nº total de votos a generar por segundo
-        - blank_vote_probability: probabilidad de voto en blanco
-        - parties: lista de partidos ficticios
+        Initializes the VoteGenerator.
+
+        Args:
+            database_client: Database client used to retrieve country,
+                province, and political party information.
+            configuration (VoteConfiguration): Vote generation configuration.
         """
         self.db_info_object = DataBaseInformationObject(database_client)
         # self.country = self.db_info_object.country
@@ -54,13 +61,15 @@ class VoteGenerator:
 
         self.running = False
         self.provinces: List[Province] = []
-        self.weighted_provinces: List[Province] = []  # provinces repeated by pop weight
+        self.weighted_provinces: List[Province] = []
 
         self.load_provinces_data()
 
 
     def load_provinces_data(self):
-        """"""
+        """
+        Loads provinces from the country object and builds population weights.
+        """
         for region in self.country.regions:
             for province in region.provinces:
                 self.provinces.append(province)
@@ -71,7 +80,12 @@ class VoteGenerator:
 
 
     def _build_population_weights(self):
-        """"""
+        """
+        Builds a population-weighted list of provinces.
+
+        Provinces are repeated proportionally to their population to allow
+        weighted random selection.
+        """
         total_pop = sum(p.population for p in self.provinces)
         self.weighted_provinces = []
 
@@ -81,7 +95,16 @@ class VoteGenerator:
 
 
     def generate_vote(self) -> Dict:
-        """"""
+        """
+        Generates a single vote event.
+
+        The vote is assigned to a province using population weights and to
+        a political party using popularity weights. Blank votes are generated
+        based on configuration probability.
+
+        Returns:
+            Dict: A dictionary representing the generated vote.
+        """
         province = random.choice(self.weighted_provinces)
 
         autonomic_name = self.names_mapped.get(province.name)
@@ -109,7 +132,9 @@ class VoteGenerator:
 
     def start(self):
         """
-        por defecto: imprime en pantalla
+        Starts generating votes and publishing them to Kafka.
+
+        Votes are produced at a fixed rate defined by the configuration.
         """
 
         self.running = True
@@ -157,14 +182,24 @@ class VoteGenerator:
 
 
     def stop(self):
+        """
+        Stops the vote generation loop.
+        """
         self.running = False
 
 
     def _build_party_weights(self):
-        """"""
+        """
+        Builds internal lists of party names and their popularity weights.
+        """
         self._party_names = [p["name"] for p in self.parties]
         self._party_weights = [p["popularity"] for p in self.parties]
 
-    def _choose_party(self):
-        """"""
+    def _choose_party(self) -> str:
+        """
+        Selects a political party using weighted random choice.
+
+        Returns:
+            str: Name of the selected political party.
+        """
         return random.choices(self._party_names, weights=self._party_weights, k=1)[0]
