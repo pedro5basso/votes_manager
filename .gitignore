@@ -26,3 +26,4 @@ mnt/*
 
 # logs
 logs/votes_generator.log
+logs/__pycache__/
