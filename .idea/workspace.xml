@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/utils/logs/votes_generator.log" beforeDir="false" afterPath="$PROJECT_DIR$/generation/utils/logs/votes_generator.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/jobs/new_votes_streaming_job.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/jobs/run_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/run_job.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
