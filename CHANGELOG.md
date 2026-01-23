@@ -3,6 +3,23 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-01-23
+### Added
+- folder logs/ for managing all logs from a main file. Added to .gitignore
+- logs/logging_config.py: script for managing loggings moved to this new folder. Adding also code  beauty
+- folder commands for managing all configuration commands that the project require:
+  - elasticsearch/: connectors commands and indexes commands
+  - spark/: spark job run command
+### Changed
+- .gitignore: log file and logs pycache
+- all imports related with the log generator script
+- docstrings and code beauty on generation/db/database_connector.py
+### Removed
+- env.example: removing scala, spark and elasticsearch versions as are not used.
+- generation/utils/logging_config.py: moved to logs folder
+- generation/utils/logs/votes_generator.log: moved to .gitignore file
+
+
 ## [0.11.0] - 2026-01-23
 ### Added
 
