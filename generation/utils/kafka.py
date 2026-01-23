@@ -3,7 +3,7 @@ import time
 
 from confluent_kafka import KafkaError, KafkaException, Message, Producer
 from confluent_kafka.admin import AdminClient, NewTopic
-from generation.utils.logging_config import setup_logging
+from logs.logging_config import setup_logging
 
 setup_logging(logging.INFO)
 

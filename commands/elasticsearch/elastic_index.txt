@@ -1,0 +1,102 @@
+// clean votes index
+PUT votes_clean
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "properties": {
+      "doc_id": {
+        "type": "keyword"
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "timestamp": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss.SSSSSS||strict_date_optional_time||epoch_millis"
+      },
+      "political_party": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "province_name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "autonomic_region_name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "blank_vote": {
+        "type": "boolean"
+      },
+      "location": {
+        "type": "geo_point"
+      },
+      "province_iso_code": {
+        "type": "keyword"
+      },
+      "autonomic_region_iso_code": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+
+// seats index
+PUT votes_seats_provinces
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "properties": {
+		"doc_id": {
+			"type": "keyword"
+		},
+		"province_name": {
+			"type": "text",
+			"fields": {
+				"keyword": {
+					"type": "keyword"
+				}
+			}
+      },
+      "political_party": {
+		"type": "text",
+		"fields": {
+			"keyword": {
+				"type": "keyword"
+			}
+		}
+      },
+      "seats": {
+        "type": "integer"
+      },
+      "updated_at": {
+        "type": "date",
+        "format": "strict_date_optional_time||epoch_millis"
+      }
+    }
+  }
+}
+
+GET votes_clean/_search
+
+GET votes_seats_provinces/_search

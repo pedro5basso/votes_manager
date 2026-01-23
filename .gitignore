@@ -23,3 +23,6 @@ generation/votes_generator/logs/votes_generator.log
 mnt
 mnt/*
 
+
+# logs
+logs/votes_generator.log

@@ -2,7 +2,7 @@ import logging
 from typing import List
 
 from generation.utils.boundary_objects import AutonomousRegion, Country, Province
-from generation.utils.logging_config import setup_logging
+from logs.logging_config import setup_logging
 from generation.utils.political_parties import political_parties
 
 from generation.db.database_connector import MySQLClient
