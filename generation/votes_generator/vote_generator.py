@@ -9,7 +9,7 @@ from typing import Dict, List
 from generation.db.get_db_information import DataBaseInformationObject
 from generation.utils.boundary_objects import Province
 from generation.utils.kafka import KafkaConfiguration, KafkaUtils
-from generation.utils.logging_config import setup_logging
+from logs.logging_config import setup_logging
 
 setup_logging(logging.INFO)
 

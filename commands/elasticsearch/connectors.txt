@@ -1,0 +1,5 @@
+// connector for votes index
+curl -d @"/opt/connect/sink-elasticsearch-votes.json" -H "Content-Type: application/json" -X POST http://localhost:8083/connectors
+
+// connector for seats index
+curl -d @"/opt/connect/sink-elasticsearch-seats.json" -H "Content-Type: application/json" -X POST http://localhost:8083/connectors
