@@ -23,7 +23,3 @@ generation/votes_generator/logs/votes_generator.log
 mnt
 mnt/*
 
-#Testing
-streaming/pymodules/votes.csv
-streaming/jobs/test_operation_seats.py
-streaming/jobs/test_operation_seats2.py

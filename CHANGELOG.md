@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-01-23
+### Added
+
+### Changed
+- code beauty on all python scripts. Adding docstrings, types on function arguments and returns.
+Using libs isort, black and flake8 for code beauty.
+- streaming/job/new_votes_streaming_job.py: renamed to streaming/jobs/votes_streaming_job.py
+### Removed
+- .gitignore: testing files
+- streaming/jobs/votes_streaming_legacy.py
+
 ## [0.10.0] - 2026-01-21
 ### Added
 - .gitignore:

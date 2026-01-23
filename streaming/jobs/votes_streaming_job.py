@@ -1,331 +1,347 @@
-import logging
-import os
-
-from dotenv import load_dotenv
-from pyspark.sql import SparkSession
+from generation.utils.kafka import KafkaConfiguration
+from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql.window import Window
+from streaming.datalake.datalake_configuration import DataLakeConfig
+from streaming.schemas.vote_schema import vote_schema, vote_schema_norm
 
-load_dotenv()
-from generation.utils.logging_config import setup_logging
-from generation.votes_generator.vote_generator import VoteConfiguration
-from streaming.schemas.vote_schema import vote_schema
+seats_data = [
+    ("Madrid", 37),
+    ("Barcelona", 32),
+    ("Valencia", 16),
+    ("Sevilla", 12),
+    ("Alicante", 12),
+    ("Málaga", 11),
+    ("Murcia", 10),
+    ("Cádiz", 9),
+    ("Vizcaya", 8),
+    ("La Coruña", 8),
+    ("Islas Baleares", 8),
+    ("Las Palmas", 8),
+    ("Asturias", 7),
+    ("Santa Cruz de Tenerife", 7),
+    ("Zaragoza", 7),
+    ("Granada", 7),
+    ("Pontevedra", 7),
+    ("Córdoba", 6),
+    ("Tarragona", 6),
+    ("Gerona", 6),
+    ("Guipúzcoa", 6),
+    ("Toledo", 6),
+    ("Badajoz", 6),
+    ("Jaén", 5),
+    ("Almería", 5),
+    ("Navarra", 5),
+    ("Castellón", 5),
+    ("Cantabria", 5),
+    ("Valladolid", 5),
+    ("Ciudad Real", 5),
+    ("Huelva", 5),
+    ("León", 4),
+    ("Lérida", 4),
+    ("Cáceres", 4),
+    ("Albacete", 4),
+    ("Burgos", 4),
+    ("Salamanca", 4),
+    ("Lugo", 4),
+    ("Orense", 4),
+    ("La Rioja", 4),
+    ("Álava", 4),
+    ("Guadalajara", 3),
+    ("Huesca", 3),
+    ("Cuenca", 3),
+    ("Zamora", 3),
+    ("Ávila", 3),
+    ("Palencia", 3),
+    ("Segovia", 3),
+    ("Teruel", 3),
+    ("Soria", 2),
+    ("Ceuta", 1),
+    ("Melilla", 1),
+]
 
-setup_logging(logging.INFO)
 
-log = logging.getLogger(__name__)
+class SparkJob:
+    """
+    Spark Structured Streaming job for real-time vote processing.
 
-
-class DataLakeConfig:
-    PATH_BASE = "file:///D:/dev/UCM-BD_DE/votes_manager"
-
-    PATH_BRONZE = f"{PATH_BASE}/datalake/bronze/votes"
-    CHECKPOINT_BRONZE = f"{PATH_BASE}/checkpoints/bronze/votes"
-
-    PATH_SILVER = f"{PATH_BASE}/datalake/silver"
-    CHECKPOINT_SILVER = f"{PATH_BASE}/checkpoints/silver"
-
-    PATH_SILVER_NORMALIZED = f"{PATH_SILVER}/votes_normalized"
-    CHECKPOINT_SILVER_NORMALIZED = f"{CHECKPOINT_SILVER}/votes_normalized"
-
-    PATH_GOLD = f"{PATH_BASE}/datalake/gold"
-    CHECKPOINT_GOLD = f"{PATH_BASE}/checkpoints/gold/votes"
-
-    PATH_GOLD_PARTIES_PROVINCES = f"{PATH_GOLD}/votes_parties_provinces"
-    CHECKPOINT_GOLD_PARTIES_PROVINCES = f"{CHECKPOINT_GOLD}/votes_parties_provinces"
-
-    PATH_GOLD_PARTIES_REGIONS = f"{PATH_GOLD}/votes_parties_region"
-    CHECKPOINT_GOLD_PARTIES_REGIONS = f"{CHECKPOINT_GOLD}/votes_parties_region"
-
-    PATH_GOLD_TOTAL_PARTIES = f"{PATH_GOLD}/votes_total_party"
-    CHECKPOINT_GOLD_TOTAL_PARTIES = f"{CHECKPOINT_GOLD}/votes_total_party"
-
-
-class StreamingJob:
+    This job consumes votes from Kafka, persists them across bronze and
+    silver data lake layers, publishes cleaned votes back to Kafka,
+    and computes seat allocation per province using the D'Hondt method.
+    """
 
     def __init__(self):
-        """"""
-        self.spark = self._create_spark_session()
-        self.spark.sparkContext.setLogLevel("WARN")
+        """
+        Initializes the Spark session and reference datasets.
 
-
-    def _create_spark_session(self):
-        """"""
-
-        kafka_package = f"org.apache.spark:spark-sql-kafka-0-10_{os.getenv('SCALA_VERSION')}:{os.getenv('SPARK_VERSION')}"
-        es_package = f"org.elasticsearch:elasticsearch-spark-30_{os.getenv('SCALA_VERSION')}:{os.getenv('ELASTIC_VERSION')}"
-        return (
-            SparkSession.builder.appName("VotesManager")
+        Configures Spark for Kafka integration, streaming checkpoints,
+        and state storage. Also loads the reference data used for
+        seat allocation.
+        """
+        self.spark = (
+            SparkSession.builder.appName("VotesProcessingJob")
             .config(
                 "spark.jars.packages",
-                f"{kafka_package},{es_package}",
+                "org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.6",
             )
-            .getOrCreate()
-        )
-
-    def execute_job(self):
-        """"""
-        log.info("[StreamingJob]: Executing job")
-        # getting raw data from kafka
-        raw_df = self._read_votes_from_kafka()
-
-        ##  BRONZE
-        bronze_df = self._parse_votes(raw_df)
-
-        bronze_writing = self._write_on_layer(
-            bronze_df,
-            DataLakeConfig.PATH_BRONZE,
-            DataLakeConfig.CHECKPOINT_BRONZE,
-            output_mode="append",
-        )
-
-        ## SILVER
-        silver_reading = (
-            self.spark.readStream.schema(vote_schema).format("parquet").load(DataLakeConfig.PATH_BRONZE)
-        )
-
-        silver_reading_df = (
-            silver_reading
-            .withWatermark("timestamp", "2 minutes")
-            .dropDuplicates(["id"])
-            .select(
-                "id",
-                "timestamp",
-                "political_party",
-                "province_name",
-                "autonomic_region_name",
-                "blank_vote",
-                "location",
-                "province_iso_code",
-                "autonomic_region_iso_code"
+            .config(
+                "spark.sql.streaming.checkpointLocation", DataLakeConfig.PATH_CHECKPOINT
             )
-        )
-
-        # adapting blank votes
-        normalized_blank_votes = self._normalize_blank_votes(silver_reading_df)
-
-        silver_writing = self._write_on_layer(
-            normalized_blank_votes,
-            DataLakeConfig.PATH_SILVER_NORMALIZED,
-            DataLakeConfig.CHECKPOINT_SILVER_NORMALIZED,
-            output_mode="append",
-        )
-
-        ## GOLD
-        gold_reading = (
-            self.spark.readStream.schema(vote_schema).format("parquet").load(DataLakeConfig.PATH_SILVER_NORMALIZED)
-        )
-
-        _votes_with_id_df = (
-            gold_reading
-            .withColumn(
-            "doc_id",
-                F.sha2(F.concat_ws(
-                    "||",
-                    "political_party",
-                    "province_name",
-                    "autonomic_region_name"
-                ), 256)
+            .config(
+                "spark.sql.streaming.stateStore.stateStoreDir",
+                DataLakeConfig.PATH_STATES,
             )
+            .config("spark.sql.shuffle.partitions", 20)
+        ).getOrCreate()
+
+        self.spark.sparkContext.setLogLevel("WARN")
+
+        self.df_seats_ref = self.spark.createDataFrame(
+            seats_data, ["province_name", "total_seats"]
         )
 
-        votes_with_id_df = _votes_with_id_df.dropDuplicates(["doc_id"])
+    def run_job(self):
+        """
+        Executes the streaming pipeline.
 
-        gold_writing = (
-            votes_with_id_df
-            .writeStream
-            .foreachBatch(self._write_to_elasticsearch)
+        This method:
+        - Reads raw votes from Kafka
+        - Writes raw data to the bronze layer
+        - Normalizes and deduplicates votes into the silver layer
+        - Publishes cleaned votes to Kafka
+        - Aggregates votes and computes seats in real time
+        """
+        # stream for kafka messages
+        stream_kafka = (
+            self.spark.readStream.format("kafka")
+            .option("kafka.bootstrap.servers", KafkaConfiguration.KAFKA_BROKER_DOCKER)
+            .option("subscribe", KafkaConfiguration.TOPIC_VOTES_RAW)
+            .option("startingOffsets", "earliest")
+            .load()
+        )
+
+        # parsing messages to df format
+        df_raw_votes_from_kafka = (
+            stream_kafka.selectExpr("CAST(value AS STRING)")
+            .select(F.from_json(F.col("value"), vote_schema).alias("data"))
+            .select("data.*")
+        )
+
+        # writing on bronze layer
+        stream_bronze = (
+            df_raw_votes_from_kafka.writeStream.format("parquet")
+            .option("path", DataLakeConfig.PATH_BRONZE)
+            .option("checkpointLocation", DataLakeConfig.CHECKPOINT_BRONZE)
             .outputMode("append")
-            .option("checkpointLocation", DataLakeConfig.CHECKPOINT_GOLD)
             .start()
         )
 
-        # writing on gold and ES
-        # gold_writing = (
-        #     votes_parties_provinces
-        #     .writeStream
-        #     .foreachBatch(self.write_gold_all)
-        #     .outputMode("complete")
-        #     .option("checkpointLocation", DataLakeConfig.CHECKPOINT_GOLD)
-        #     .start()
-        # )
-        #
-
-        # ending queries
-        bronze_writing.awaitTermination()
-        silver_writing.awaitTermination()
-        gold_writing.awaitTermination()
-
-
-
-    def _normalize_blank_votes(self, df):
-        """"""
-        return df.withColumn(
+        # removing duplicates ids
+        df_votes_from_kafka_no_duplicated_id = df_raw_votes_from_kafka.dropDuplicates(
+            ["id"]
+        ).select(
+            "id",
+            "timestamp",
             "political_party",
+            "province_name",
+            "autonomic_region_name",
+            "blank_vote",
+            "location",
+            "province_iso_code",
+            "autonomic_region_iso_code",
+        )
+
+        # adapting blank votes
+        df_votes_processed = df_votes_from_kafka_no_duplicated_id.withColumn(
+            "political_party_norm",
             F.when(F.col("blank_vote") == True, F.lit("BLANK")).otherwise(
                 F.col("political_party")
             ),
         )
 
-    def _debug_console_df(self, df):
-        """"""
-        # DEBUG: escribir en consola
-        query = (
-            df.writeStream.outputMode("append")
-            .format("console")
-            .option("truncate", False)
+        # writing on silver
+        stream_silver = (
+            df_votes_processed.writeStream.format("parquet")
+            .option("path", DataLakeConfig.PATH_SILVER_NORMALIZED)
+            .option("checkpointLocation", DataLakeConfig.CHECKPOINT_SILVER_NORMALIZED)
+            .outputMode("append")
             .start()
         )
 
-        query.awaitTermination()
-
-    def _read_votes_from_kafka(self):
-        """"""
-        return (
-            self.spark.readStream.format("kafka")
-            .option("kafka.bootstrap.servers", "localhost:9092")
-            .option("subscribe", VoteConfiguration.TOPIC_NAME)
-            .option("startingOffsets", "earliest") # repasar valor
-            .option("failOnDataLoss", "false")
-            .load()
+        # adding hash id for ElasticSearch
+        df_votes_processed_with_doc_id = df_votes_processed.withColumn(
+            "doc_id",
+            F.sha2(
+                F.concat_ws(
+                    "||", "political_party", "province_name", "autonomic_region_name"
+                ),
+                256,
+            ),
         )
 
-    def _parse_votes(self, df):
-        """"""
-        return (
-            df.selectExpr("CAST(value AS STRING) as json")
-            .select(F.from_json(F.col("json"), vote_schema).alias("data"))
-            .select("data.*")
+        # sending messages to votes_clean topic on kafka
+        stream_aggregation = (
+            df_votes_processed_with_doc_id.withColumn(
+                "key", F.col("doc_id").cast("string")
+            )
+            .withColumn(
+                "value",
+                F.to_json(
+                    F.struct(
+                        F.col("doc_id").alias("doc_id"),
+                        F.col("id").cast("string").alias("id"),
+                        "political_party",
+                        "location",
+                        "timestamp",
+                        "province_iso_code",
+                        "province_name",
+                        "blank_vote",
+                        "autonomic_region_iso_code",
+                        "autonomic_region_name",
+                    )
+                ),
+            )
+            .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+            .writeStream.format("kafka")
+            .outputMode("append")
+            .option("kafka.bootstrap.servers", KafkaConfiguration.KAFKA_BROKER_DOCKER)
+            .option("topic", KafkaConfiguration.TOPIC_VOTES_CLEAN)
+            .option("checkpointLocation", DataLakeConfig.CHECKPOINT_GOLD_VOTES_CLEAN)
+            .start()
         )
 
-
-    def _write_on_layer(self, df, layer_path, checkpoint_path, output_mode="append"):
-        """"""
-        return (
-            df
-            .writeStream
+        # getting all votes from silver layer to compute seats with all available votes
+        stream_votes_silver = (
+            self.spark.readStream.schema(vote_schema_norm)
             .format("parquet")
-            .option("path", layer_path)
-            .option("checkpointLocation", checkpoint_path)
-            .outputMode(output_mode)
+            .load(DataLakeConfig.PATH_SILVER_NORMALIZED)
+        )
+
+        # making aggregation on real time (Stateful Streaming)
+        # keeping the total count on memory/checkpoint
+        df_votes_aggregated = (
+            stream_votes_silver.groupBy("province_name", "political_party_norm")
+            .count()
+            .withColumnRenamed("count", "votes_per_party")
+        )
+
+        # computing seats based on all the votes generated.
+        # the computation will be calculated with a time trigger
+        stream_seats = (
+            df_votes_aggregated.writeStream.outputMode(
+                "complete"
+            )  # sending all information updated on each trigger
+            .foreachBatch(self.compute_seats_from_votes)
+            .trigger(processingTime="1 minute")
+            .option(
+                "checkpointLocation",
+                DataLakeConfig.CHECKPOINT_GOLD_PARTIES_PROVINCES_SEATS,
+            )
             .start()
         )
 
-    def _write_to_elasticsearch(self, batch_df, batch_id):
-        """"""
-        log.info(f"[StreamingJob]: Writing Gold Batch ID: {batch_id} - Count: {batch_df.count()}")
+        # ending streams
+        stream_bronze.awaitTermination()
+        stream_silver.awaitTermination()
+        stream_aggregation.awaitTermination()
+        stream_seats.awaitTermination()
 
-        es_conf = {
-            "es.nodes": "localhost",
-            "es.port": "9200",
-            "es.nodes.wan.only": "true", # when set to True, Spark treats the listed es.nodes as standalone and avoids node discovery
-            "es.index.auto.create": "true"
-        }
+    def compute_seats_from_votes(self, df_batch: DataFrame, batch_id: int):
+        """
+        Computes seat allocation per province using the D'Hondt method.
 
+        This method is executed on each micro-batch and:
+        - Filters invalid and blank votes
+        - Applies the 3% threshold rule
+        - Computes quotients and rankings
+        - Assigns seats per party and province
+        - Persists results to the gold layer
+        - Publishes seat updates to Kafka
+
+        Args:
+            df_batch (DataFrame): Aggregated votes for the current batch.
+            batch_id (int): Identifier of the micro-batch.
+        """
+        if df_batch.isEmpty():
+            return
+
+        # recompute totals by province on the input batch
+        window_totals = Window.partitionBy("province_name")
+        df_batch_with_totals = df_batch.withColumn(
+            "total_votes_province", F.sum("votes_per_party").over(window_totals)
+        )
+
+        # filtering 3% threshold and blank votes
+        df_valids = df_batch_with_totals.filter(
+            (F.col("political_party_norm") != "BLANK")
+            & ((F.col("votes_per_party") / F.col("total_votes_province")) >= 0.03)
+        ).cache()
+
+        # join with seats (Broadcast)
+        df_dhondt = df_valids.join(F.broadcast(self.df_seats_ref), on="province_name")
+
+        # explode: generating dividers
+        df_quotients = df_dhondt.withColumn(
+            "divisor", F.explode(F.sequence(F.lit(1), F.col("total_seats")))
+        ).withColumn("quotient", F.col("votes_per_party") / F.col("divisor"))
+
+        # ranking and selection. Making sure of the 350 limit
+        # ordering by quotient, using votes_per_party for breaking the tie
+        window_ranking = Window.partitionBy("province_name").orderBy(
+            F.desc("quotient"), F.desc("votes_per_party")
+        )
+
+        # computing who gets the seat
+        df_winners = (
+            df_quotients.withColumn("ranking", F.row_number().over(window_ranking))
+            .filter(F.col("ranking") <= F.col("total_seats"))
+            .groupBy("province_name", "political_party_norm")
+            .agg(F.count("*").alias("seats"))
+        )
+
+        # we need a list with ALL the political parties who are able to win a seat on the province
+        # to set them a 0 if they do not won a seat
+        df_candidates = df_valids.select(
+            "province_name", "political_party_norm"
+        ).distinct()
+
+        # making LEFT JOIN. If it is not on winners, seats will be null -> setting it to 0
+        df_final_result = df_candidates.join(
+            df_winners, on=["province_name", "political_party_norm"], how="left"
+        ).fillna({"seats": 0})
+
+        # saving on GOLD
         (
-            batch_df.write
-             .format("org.elasticsearch.spark.sql")
-             .mode("append")
-             .options(**es_conf)
-             .option("es.resource", "votes_index")
-             .option("es.mapping.id", "doc_id")
-             .option("es.write.operation", "index")
-             .save()
+            df_final_result.write.format("parquet")
+            .mode("overwrite")
+            .option("overwriteSchema", "true")
+            .save(DataLakeConfig.PATH_GOLD_PARTIES_PROVINCES_SEATS)
         )
 
+        # making a specific id in order to make Elasticsearch able to overwrite the seat information.
+        # example ID: "Madrid_Perro Liberal"
+        df_kafka_output = df_final_result.withColumn(
+            "doc_id",
+            F.concat_ws("_", F.col("province_name"), F.col("political_party_norm")),
+        ).withColumn("updated_at", F.current_timestamp())
 
-    def _write_gold_and_es(self, index_name, gold_path):
-        def _write(batch_df, batch_id):
-            (
-                batch_df
-                .write
-                .mode("overwrite")
-                .parquet(f"{gold_path}")
-            )
-            (
-                batch_df
-                .write
-                .format("org.elasticsearch.spark.sql")
-                .mode("overwrite")
-                .option("es.resource", index_name)
-                .option("es.nodes", "localhost")
-                .option("es.port", "9200")
-                .option("es.mapping.id", "doc_id")
-                .save()
-            )
-
-        return _write
-
-
-    def write_gold_all(self, batch_df, batch_id):
-        """
-        Esta función se ejecuta por cada micro-batch.
-        Batch_df ya viene agregado por Partido/Provincia/Region desde la query principal.
-        """
-        log.info(f"[StreamingJob]: Writing Gold Batch ID: {batch_id} - Count: {batch_df.count()}")
-
-        # Cachear el DF porque lo vas a usar 4 veces (1 parquet + 3 ES)
-        batch_df.persist()
-
-        # 1. Guardar histórico en Parquet (Overwrite sobre la ruta base puede ser peligroso en streaming si no particionas, pero para TFM vale)
-        batch_df.write \
-            .mode("overwrite") \
-            .parquet(DataLakeConfig.PATH_GOLD_PARTIES_PROVINCES)
-
-        # Configuración común de ES
-        es_conf = {
-            "es.nodes": "localhost",
-            "es.port": "9200",
-            "es.nodes.wan.only": "true",  # CRÍTICO para Docker vs Localhost
-            "es.index.auto.create": "true"
-        }
-
-        # NOTA: Si tu Elastic tiene seguridad (usuario/pass) actívala aquí:
-        # es_conf["es.net.http.auth.user"] = "elastic"
-        # es_conf["es.net.http.auth.pass"] = "changeme"
-
-        # 2. ES: Nivel Provincia
-        (batch_df.write
-         .format("org.elasticsearch.spark.sql")
-         .mode("append")  # 'Overwrite' en ES borra el índice completo o falla. Usar 'Append' con IDs para upsert.
-         .options(**es_conf)
-         .option("es.resource", "votes_party_province")
-         .option("es.mapping.id", "doc_id")  # Usar el ID generado para evitar duplicados (Upsert)
-         .option("es.write.operation", "upsert")
-         .save())
-
-        # 3. ES: Agregación Nivel Región
-        votes_party_region = (
-            batch_df
-            .groupBy("political_party", "autonomic_region_name")
-            .agg(F.sum("count").alias("total_votes"))
-            # Generar ID determinista para poder hacer upsert en ES
-            .withColumn("region_id", F.sha2(F.concat_ws("||", "political_party", "autonomic_region_name"), 256))
+        # making JSON and sending
+        df_kafka_message = df_kafka_output.select(
+            F.col("doc_id").alias("key"),
+            F.to_json(
+                F.struct(
+                    F.col("doc_id"),
+                    F.col("province_name"),
+                    F.col("political_party_norm").alias("political_party"),
+                    F.col("seats"),  # able to be 0
+                    F.col("updated_at"),
+                )
+            ).alias("value"),
         )
 
-        (votes_party_region.write
-         .format("org.elasticsearch.spark.sql")
-         .mode("append")
-         .options(**es_conf)
-         .option("es.resource", "votes_party_region")
-         .option("es.mapping.id", "region_id")
-         .option("es.write.operation", "upsert")
-         .save())
+        df_kafka_message.write.format("kafka").option(
+            "kafka.bootstrap.servers", KafkaConfiguration.KAFKA_BROKER_DOCKER
+        ).option("topic", KafkaConfiguration.TOPIC_VOTES_SEATS_PROVINCES).save()
 
-        # 4. ES: Agregación Nivel Nacional (Total Partido)
-        votes_party_total = (
-            batch_df
-            .groupBy("political_party")
-            .agg(F.sum("count").alias("total_votes"))
-            .withColumn("party_id", F.sha2("political_party", 256))
-        )
-
-        (votes_party_total.write
-         .format("org.elasticsearch.spark.sql")
-         .mode("append")
-         .options(**es_conf)
-         .option("es.resource", "votes_party_total")
-         .option("es.mapping.id", "party_id")
-         .option("es.write.operation", "upsert")
-         .save())
-
-        batch_df.unpersist()
+        # removing from memory
+        df_valids.unpersist()
