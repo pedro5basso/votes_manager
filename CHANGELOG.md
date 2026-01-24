@@ -3,6 +3,24 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-01-24
+### Added
+- /.idea folder files
+- logs folder on docker compose volumes
+- streaming/pymodules/requirements.txt: adding mysql-connector-python and python-dotenv modules
+### Changed
+- .gitignore:
+  - removing old logs folders unused
+  - removing /.idea folder
+- db .env file, adding two hosts:
+  - localhost for managing local generation votes
+  - dockerhost for spark job access
+- Some code beauty params for compatibility with python 3.8 and 3.11 (ex: dict -> Dict)
+### Removed
+- generation/votes_generator/vote_generator.py: deleting argument GENERATE_CSV_FILE from class VoteConfiguration
+- All provinces with their seats hardcoded on spark job, now is able to access to the database.
+- streaming/pymodules/Dockerfile: removing COPY votes.csv line, no longer used.
+
 ## [0.12.0] - 2026-01-23
 ### Added
 - folder logs/ for managing all logs from a main file. Added to .gitignore

@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/logs/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/generation/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/db/database_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/db/database_connector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/db/get_db_information.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/db/get_db_information.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/votes_generator/run_votes.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/run_votes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/pymodules/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/pymodules/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/pymodules/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/pymodules/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
