@@ -5,6 +5,7 @@ x-spark-common: &spark-common
   volumes:
     - ./streaming:/opt/spark/streaming
     - ./generation:/opt/spark/generation
+    - ./logs:/opt/spark/logs
     - ./mnt/checkpoints:/mnt/checkpoints
     - ./mnt/spark-state:/mnt/spark-state
     - ./mnt/datalake:/mnt/datalake

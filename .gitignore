@@ -1,8 +1,3 @@
-# .idea folder and files
-/.idea
-/.idea/votes_manager.iml
-/.idea/workspace.xml
-
 # .venv
 .venv
 
@@ -15,9 +10,6 @@ generation/db/__pycache__/
 generation/utils/__pycache__/
 generation/votes_generator/__pycache__/
 
-# logs: file and folder
-generation/votes_generator/logs
-generation/votes_generator/logs/votes_generator.log
 
 # Datalake and checkpoints
 mnt

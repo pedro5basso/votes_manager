@@ -1,6 +1,6 @@
 import logging
 import os
-
+from typing import List, Dict, Optional
 import mysql.connector
 from dotenv import load_dotenv
 from logs.logging_config import setup_logging
@@ -20,7 +20,8 @@ class MySQLConfig:
     Values are loaded from environment variables.
     """
 
-    HOST = os.getenv("DB_HOST")
+    LOCALHOST = os.getenv("DB_LOCALHOST")
+    DOCKER_HOST = os.getenv("DB_DOCKERHOST")
     PORT = int(os.getenv("DB_PORT"))
     USER = os.getenv("DB_USER")
     PASSWORD = os.getenv("DB_PASSWORD")
@@ -67,6 +68,7 @@ class MySQLClient:
             log.info("[DB]: Connected correctly.")
         except Error as e:
             log.error(f"[DB]: Connexion error: {e}")
+            raise e
 
     def disconnect(self):
         """
@@ -76,7 +78,7 @@ class MySQLClient:
             self.connection.close()
             log.info("[DB]: Connexion closed.")
 
-    def fetch_all(self, query: str, params: tuple = None) -> list[dict]:
+    def fetch_all(self, query: str, params: tuple = None) -> List[Dict]:
         """
         Executes a SELECT query and returns all resulting rows.
 
@@ -93,7 +95,7 @@ class MySQLClient:
         cursor.close()
         return result
 
-    def fetch_one(self, query: str, params: tuple = None) -> dict or None:
+    def fetch_one(self, query: str, params: tuple = None) -> Optional[Dict]:
         """
         Executes a SELECT query and returns a single row.
 
