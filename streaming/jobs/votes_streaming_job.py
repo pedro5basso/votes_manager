@@ -4,61 +4,8 @@ from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 from streaming.datalake.datalake_configuration import DataLakeConfig
 from streaming.schemas.vote_schema import vote_schema, vote_schema_norm
-
-seats_data = [
-    ("Madrid", 37),
-    ("Barcelona", 32),
-    ("Valencia", 16),
-    ("Sevilla", 12),
-    ("Alicante", 12),
-    ("Málaga", 11),
-    ("Murcia", 10),
-    ("Cádiz", 9),
-    ("Vizcaya", 8),
-    ("La Coruña", 8),
-    ("Islas Baleares", 8),
-    ("Las Palmas", 8),
-    ("Asturias", 7),
-    ("Santa Cruz de Tenerife", 7),
-    ("Zaragoza", 7),
-    ("Granada", 7),
-    ("Pontevedra", 7),
-    ("Córdoba", 6),
-    ("Tarragona", 6),
-    ("Gerona", 6),
-    ("Guipúzcoa", 6),
-    ("Toledo", 6),
-    ("Badajoz", 6),
-    ("Jaén", 5),
-    ("Almería", 5),
-    ("Navarra", 5),
-    ("Castellón", 5),
-    ("Cantabria", 5),
-    ("Valladolid", 5),
-    ("Ciudad Real", 5),
-    ("Huelva", 5),
-    ("León", 4),
-    ("Lérida", 4),
-    ("Cáceres", 4),
-    ("Albacete", 4),
-    ("Burgos", 4),
-    ("Salamanca", 4),
-    ("Lugo", 4),
-    ("Orense", 4),
-    ("La Rioja", 4),
-    ("Álava", 4),
-    ("Guadalajara", 3),
-    ("Huesca", 3),
-    ("Cuenca", 3),
-    ("Zamora", 3),
-    ("Ávila", 3),
-    ("Palencia", 3),
-    ("Segovia", 3),
-    ("Teruel", 3),
-    ("Soria", 2),
-    ("Ceuta", 1),
-    ("Melilla", 1),
-]
+from generation.db.get_db_information import DataBaseInformationObject
+from generation.db.database_connector import MySQLClient, MySQLConfig
 
 
 class SparkJob:
@@ -96,8 +43,18 @@ class SparkJob:
 
         self.spark.sparkContext.setLogLevel("WARN")
 
+        mysql_client = MySQLClient(
+            host=MySQLConfig.DOCKER_HOST,
+            user=MySQLConfig.USER,
+            password=MySQLConfig.PASSWORD,
+            database=MySQLConfig.DATABASE,
+            port=MySQLConfig.PORT,
+        )
+        self.databaseObject = DataBaseInformationObject(mysql_client)
+
+
         self.df_seats_ref = self.spark.createDataFrame(
-            seats_data, ["province_name", "total_seats"]
+            self.databaseObject.get_seats_by_province(), ["province_name", "total_seats"]
         )
 
     def run_job(self):

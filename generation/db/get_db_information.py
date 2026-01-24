@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Dict, Tuple
 
 from generation.utils.boundary_objects import AutonomousRegion, Country, Province
 from logs.logging_config import setup_logging
@@ -32,12 +32,12 @@ class DataBaseInformationObject:
         return self._country
 
     @property
-    def mapped_names(self) -> dict[str, str]:
+    def mapped_names(self) -> Dict[str, str]:
         """Maps province names to their corresponding autonomous region names."""
         return self._names_mapped
 
     @property
-    def mapped_iso_codes(self) -> dict[str, str]:
+    def mapped_iso_codes(self) -> Dict[str, str]:
         """Maps province names to their corresponding ISO 3166-2 region codes."""
         return self._iso_codes_mapped
 
@@ -105,7 +105,7 @@ class DataBaseInformationObject:
 
         return country
 
-    def mapping_names_prov2regions(self) -> dict:
+    def mapping_names_prov2regions(self) -> Dict:
         """
         Maps province names to autonomous region names.
 
@@ -118,7 +118,7 @@ class DataBaseInformationObject:
             for province in region.provinces
         }
 
-    def mapping_iso_code_prov2regions(self) -> dict:
+    def mapping_iso_code_prov2regions(self) -> Dict:
         """
         Maps province names to ISO 3166-2 region codes.
 
@@ -131,7 +131,7 @@ class DataBaseInformationObject:
             for province in region.provinces
         }
 
-    def get_political_parties(self) -> List[dict]:
+    def get_political_parties(self) -> List[Dict]:
         """
         Returns all political parties.
 
@@ -140,7 +140,7 @@ class DataBaseInformationObject:
         """
         return political_parties
 
-    def get_seats_by_province(self) -> list[tuple[str, int]]:
+    def get_seats_by_province(self) -> List[Tuple[str, int]]:
         """
         Gets the seats information from the provinces.
             Returns:

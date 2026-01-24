@@ -1,2 +1,4 @@
 confluent-kafka
 pyspark==3.5.6
+mysql-connector-python
+python-dotenv

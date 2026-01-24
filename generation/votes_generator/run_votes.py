@@ -5,7 +5,7 @@ if __name__ == "__main__":
 
     # creting database configuration class
     mysql = MySQLClient(
-        host=MySQLConfig.HOST,
+        host=MySQLConfig.LOCALHOST,
         user=MySQLConfig.USER,
         password=MySQLConfig.PASSWORD,
         database=MySQLConfig.DATABASE,

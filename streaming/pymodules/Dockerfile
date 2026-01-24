@@ -3,7 +3,6 @@ FROM apache/spark:3.5.6
 USER root
 
 COPY requirements.txt /opt/spark/requirements.txt
-COPY votes.csv /opt/tmp/votes.csv
 
 WORKDIR /opt/spark
 
