@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
@@ -39,6 +38,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.coordenates.executor&quot;: &quot;Run&quot;,
+    &quot;Python.coordinates.executor&quot;: &quot;Run&quot;,
     &quot;Python.display_df.executor&quot;: &quot;Run&quot;,
     &quot;Python.generate_topics.executor&quot;: &quot;Run&quot;,
     &quot;Python.kafka.executor&quot;: &quot;Run&quot;,
@@ -46,19 +46,42 @@
     &quot;Python.testing_operations.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;major/connecting-job-wiht-mysql&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/adding-multiple-coordinates&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/dev/UCM-BD_DE/kafka&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\dev\UCM-BD_DE\votes_manager\generation\coordinates" />
       <recent name="D:\dev\UCM-BD_DE\votes_manager\logs" />
       <recent name="D:\dev\UCM-BD_DE\votes_manager\commands\spark" />
       <recent name="D:\dev\UCM-BD_DE\votes_manager\streaming\pymodules" />
     </key>
   </component>
   <component name="RunManager" selected="Python.run_votes">
+    <configuration name="coordinates" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="votes_manager" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/generation/coordinates" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generation/coordinates/coordinates.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="generate_topics" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="votes_manager" />
       <option name="ENV_FILES" value="" />
@@ -104,6 +127,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.coordinates" />
       <item itemvalue="Python.generate_topics" />
       <item itemvalue="Python.run_votes" />
     </list>
@@ -111,6 +135,7 @@
       <list>
         <item itemvalue="Python.run_votes" />
         <item itemvalue="Python.generate_topics" />
+        <item itemvalue="Python.coordinates" />
       </list>
     </recent_temporary>
   </component>

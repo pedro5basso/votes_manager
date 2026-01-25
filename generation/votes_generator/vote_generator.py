@@ -6,6 +6,7 @@ import uuid
 from datetime import datetime
 from typing import Dict, List
 
+from generation.coordinates.coordinates import ProvinceCoordinates
 from generation.db.get_db_information import DataBaseInformationObject
 from generation.utils.boundary_objects import Province
 from generation.utils.kafka import KafkaConfiguration, KafkaUtils
@@ -54,6 +55,7 @@ class VoteGenerator:
         self.iso_codes_mapped = self.db_info_object.mapped_iso_codes
 
         self.kafka_utils = KafkaUtils()
+        self.coord_provinces = ProvinceCoordinates()
 
         self.running = False
         self.provinces: List[Province] = []
@@ -105,7 +107,7 @@ class VoteGenerator:
         autonomic_name = self.names_mapped.get(province.name)
         autonomic_iso_code = self.iso_codes_mapped.get(province.name)
 
-        location = f"{province.latitude},{province.longitude}"
+        location = self.coord_provinces.get_coordinate_from_province(province.code_province)
 
         blank_vote = random.random() < self.config.BLANK_VOTE_PROVABILITY
         political_party = None if blank_vote else self._choose_party()
@@ -140,10 +142,9 @@ class VoteGenerator:
         log.info(
             f"[VotesGenerator]: Velocity: {self.config.VOTES_PER_SECOND} votes/second"
         )
-        log.info(f"[VotesGenerator]: Intervalo: {interval:.6f} s\n")
+        log.info(f"[VotesGenerator]: Interval: {interval:.6f} s\n")
 
         counter_votes = 0
-        votes_history = list()
 
         try:
             while self.running:
@@ -158,13 +159,12 @@ class VoteGenerator:
                     on_delivery=self.kafka_utils.delivery_report,
                 )
                 producer.poll(0.1)
-                votes_history.append(vote)
                 time.sleep(interval)
 
-                if self.config.TOTAL_VOTES and counter_votes > self.config.TOTAL_VOTES:
-                    self.stop()
-
                 counter_votes += 1
+
+                if self.config.TOTAL_VOTES and counter_votes >= self.config.TOTAL_VOTES:
+                    self.stop()
 
         except BufferError as be:
             log.error(f"[VotesGenerator]: Buffer full: {be}")

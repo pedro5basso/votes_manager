@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-01-25
+### Added
+- generation/coordinates/coordinates.py: script to manage votes coordinates based on municipality coordinates
+from Spain
+- generation/coordinates/__init__.py
+- generation/coordinates/files/*.json: coordinates from a province. Each file name corresponds to the province code
+- docker-compose.yaml: 
+  - adding healthcheck on schema-registry image
+  - adding condition on console image to make sure all images started correctly
+### Changed
+- generation/votes_generator/vote_generator.py: now the vote coordination comes from the coordinates.py file
+### Removed
+
+
 ## [1.0.0] - 2026-01-24
 ### Added
 - /.idea folder files
