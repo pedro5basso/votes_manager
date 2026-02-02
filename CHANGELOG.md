@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-02-02
+### Added
+- generation/coordinates/coordinates.py: adding coordinates from main cities from another repository.
+- generation/coordinates/files/**.json: adding main city coordinates
+### Changed
+- fixed problem on showing votes on Kenya
+- generation/votes_generator/vote_generator.py: updating dafault votes  to 20000
+### Removed
+
+
 ## [1.1.0] - 2026-01-25
 ### Added
 - generation/coordinates/coordinates.py: script to manage votes coordinates based on municipality coordinates
