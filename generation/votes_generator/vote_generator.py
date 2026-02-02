@@ -22,7 +22,7 @@ class VoteConfiguration:
     Configuration values for vote generation behavior.
     """
 
-    TOTAL_VOTES = 1000
+    TOTAL_VOTES = 20000
     VOTES_PER_SECOND = 100
     BLANK_VOTE_PROVABILITY = 0.01
 

@@ -5,8 +5,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/votes_manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/votes_manager.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/coordinates.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/coordinates.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/01.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/01.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/02.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/02.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/03.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/03.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/04.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/04.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/05.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/05.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/06.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/06.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/07.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/07.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/08.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/08.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/09.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/09.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/10.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/10.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/11.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/11.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/12.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/12.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/13.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/13.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/14.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/14.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/15.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/15.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/16.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/16.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/17.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/17.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/18.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/18.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/19.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/19.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/20.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/20.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/21.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/21.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/22.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/22.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/23.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/23.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/24.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/24.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/25.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/25.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/26.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/26.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/27.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/27.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/28.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/28.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/29.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/29.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/30.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/30.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/31.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/31.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/32.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/32.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/33.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/33.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/34.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/34.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/35.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/35.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/36.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/36.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/37.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/37.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/38.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/38.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/39.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/39.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/40.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/40.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/41.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/41.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/42.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/42.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/43.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/43.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/44.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/44.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/45.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/45.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/46.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/46.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/47.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/47.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/48.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/48.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/49.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/49.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/50.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/50.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/51.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/51.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/52.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/52.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/coordinates/files/54.json" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/files/54.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/votes_generator/vote_generator.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +88,7 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="3797ejsJ78TUfN0pw62icQMxbCR" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,9 +104,9 @@
     &quot;Python.testing_operations.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/adding-multiple-coordinates&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/add-coordinates-main-cities&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/dev/UCM-BD_DE/kafka&quot;
+    &quot;last_opened_file_path&quot;: &quot;D:/dev/UCM-BD_DE/spain-cities-geojson&quot;
   }
 }</component>
   <component name="RecentsManager">

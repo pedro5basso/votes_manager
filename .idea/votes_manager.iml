@@ -4,5 +4,6 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="jdk" jdkName="Python 3.11 virtualenv at D:\dev\UCM-BD_DE\votes_manager\.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="spain-cities-geojson" />
   </component>
 </module>
