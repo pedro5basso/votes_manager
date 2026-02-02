@@ -45,10 +45,18 @@ class GenerateCoordinatesFiles:
             self.province_names[m["prov_code"]] = m["prov_name"]
 
     def _extract_linestring_coordinates(self, geojson: dict) -> list[str]:
-        """
+        """Extract coordinates from LineString and MultiLineString geometries.
 
-        :param geojson:
-        :return:
+        Iterates over the features of a GeoJSON object and collects all
+        coordinates from geometries of type LineString and MultiLineString.
+        Each coordinate is returned as a string in "lat,lon" format.
+
+        Args:
+            geojson (dict): A GeoJSON-like dictionary containing a "features"
+                list with geometries of type LineString or MultiLineString.
+
+        Returns:
+            list[str]: A list of coordinates formatted as "lat,lon".
         """
         coords = []
 
@@ -69,11 +77,23 @@ class GenerateCoordinatesFiles:
         return coords
 
     def _load_capital_coordinates(self, province_name: str) -> list[str]:
-        """
+        """Load street coordinates for a province capital.
 
-        :param province_name:
-        :return:
-        """
+        Given a province name, this method looks up the corresponding GeoJSON
+        file containing street geometries for the capital city, loads it from
+        disk, and extracts all LineString and MultiLineString coordinates.
+
+        If the province name is not found in the mapping or the GeoJSON file
+        does not exist, an empty list is returned.
+
+        Args:
+            province_name (str): Name of the province used to locate the
+                capital city GeoJSON file.
+
+        Returns:
+            list[str]: A list of coordinates in "lat,lon" format extracted
+            from the capital city's street geometries.
+    """
         geojson_file = self.capital_files.get(province_name)
 
         if not geojson_file:
