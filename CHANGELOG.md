@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [1.1.0] - 2026-02-02
+## [1.2.0] - 2026-02-02
 ### Added
 - generation/coordinates/coordinates.py: adding coordinates from main cities from another repository.
 - generation/coordinates/files/**.json: adding main city coordinates
