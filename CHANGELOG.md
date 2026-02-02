@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-02-02
+### Added
+- generation/coordinates/coordinates.py: docstrings on some functions
+### Changed
+- streaming/jobs/votes_streaming_job.py: adding regions on seats computations
+### Removed
+
 ## [1.2.0] - 2026-02-02
 ### Added
 - generation/coordinates/coordinates.py: adding coordinates from main cities from another repository.

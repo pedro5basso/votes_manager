@@ -176,8 +176,9 @@ class SparkJob:
 
         # making aggregation on real time (Stateful Streaming)
         # keeping the total count on memory/checkpoint
+        # adding regions and provinces in order to be able to compute total seats by area
         df_votes_aggregated = (
-            stream_votes_silver.groupBy("province_name", "political_party_norm")
+            stream_votes_silver.groupBy("autonomic_region_name","province_name", "political_party_norm")
             .count()
             .withColumnRenamed("count", "votes_per_party")
         )
@@ -252,19 +253,19 @@ class SparkJob:
         df_winners = (
             df_quotients.withColumn("ranking", F.row_number().over(window_ranking))
             .filter(F.col("ranking") <= F.col("total_seats"))
-            .groupBy("province_name", "political_party_norm")
+            .groupBy("autonomic_region_name","province_name", "political_party_norm")
             .agg(F.count("*").alias("seats"))
         )
 
         # we need a list with ALL the political parties who are able to win a seat on the province
         # to set them a 0 if they do not won a seat
         df_candidates = df_valids.select(
-            "province_name", "political_party_norm"
+            "autonomic_region_name","province_name", "political_party_norm"
         ).distinct()
 
         # making LEFT JOIN. If it is not on winners, seats will be null -> setting it to 0
         df_final_result = df_candidates.join(
-            df_winners, on=["province_name", "political_party_norm"], how="left"
+            df_winners, on=["autonomic_region_name","province_name", "political_party_norm"], how="left"
         ).fillna({"seats": 0})
 
         # saving on GOLD
@@ -290,6 +291,7 @@ class SparkJob:
                     F.col("doc_id"),
                     F.col("province_name"),
                     F.col("political_party_norm").alias("political_party"),
+                    F.col("autonomic_region_name"),
                     F.col("seats"),  # able to be 0
                     F.col("updated_at"),
                 )
