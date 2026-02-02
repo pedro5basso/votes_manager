@@ -7,6 +7,11 @@ from pathlib import Path
 # the file can be found at https://hub.huwise.com/explore/assets/georef-spain-municipio/export/
 INPUT_COORDINATES_FILE_PATH = r"D:\tmp\votes\georef-spain-municipio.json"
 
+# repo with cities coordinates:
+# https://github.com/amoraschi/spain-cities-geojson
+CITIES_STREETS_COORDINATES_PATH = r"D:\dev\UCM-BD_DE\spain-cities-geojson\simple-cities"
+CITIES_STREETS_COOORDINATES_MAP_FILE = r"D:\dev\UCM-BD_DE\spain-cities-geojson\list.json"
+
 OUTPUT_DIRECTORY = "../coordinates/files"
 DIRECTORY = "files"
 
@@ -32,6 +37,58 @@ class GenerateCoordinatesFiles:
         with open(INPUT_COORDINATES_FILE_PATH, "r", encoding="utf-8") as f:
             self.municipalities = json.load(f)
 
+        with open(CITIES_STREETS_COOORDINATES_MAP_FILE, "r", encoding="utf-8") as f:
+            self.capital_files = json.load(f)
+
+        self.province_names = {}
+        for m in self.municipalities:
+            self.province_names[m["prov_code"]] = m["prov_name"]
+
+    def _extract_linestring_coordinates(self, geojson: dict) -> list[str]:
+        """
+
+        :param geojson:
+        :return:
+        """
+        coords = []
+
+        for feature in geojson.get("features", []):
+            geometry = feature.get("geometry", {})
+            geom_type = geometry.get("type")
+            geometry_coords = geometry.get("coordinates", [])
+
+            if geom_type == "LineString":
+                for lon, lat in geometry_coords:
+                    coords.append(f"{lat},{lon}")
+
+            elif geom_type == "MultiLineString":
+                for line in geometry_coords:
+                    for lon, lat in line:
+                        coords.append(f"{lat},{lon}")
+
+        return coords
+
+    def _load_capital_coordinates(self, province_name: str) -> list[str]:
+        """
+
+        :param province_name:
+        :return:
+        """
+        geojson_file = self.capital_files.get(province_name)
+
+        if not geojson_file:
+            return []
+
+        path = Path(CITIES_STREETS_COORDINATES_PATH) / geojson_file
+        if not path.exists():
+            return []
+
+        with open(path, "r", encoding="utf-8") as f:
+            geojson = json.load(f)
+
+        return self._extract_linestring_coordinates(geojson)
+
+
     def generate_files(self):
         """Generate coordinate files for each province.
 
@@ -49,7 +106,7 @@ class GenerateCoordinatesFiles:
             # 2d coordinate
             geo_point = municipality.get("geo_point_2d")
             if geo_point:
-                coord = f'{geo_point["lon"]},{geo_point["lat"]}'
+                coord = f'{geo_point["lat"]},{geo_point["lon"]}'
                 self.provinces[prov_code].append(coord)
 
             geo_shape = municipality.get("geo_shape", {})
@@ -73,8 +130,14 @@ class GenerateCoordinatesFiles:
                     lon, lat = point
                     self.provinces[prov_code].append(f"{lat},{lon}")
 
+        # city streets
+        for prov_code, prov_name in self.province_names.items():
+            capital_coords = self._load_capital_coordinates(prov_name)
+            self.provinces[prov_code].extend(capital_coords)
+
         # writing files by province
         for prov_code, coords in self.provinces.items():
+            print(f"writing file {prov_code}")
             output_path = os.path.join(os.getcwd(), DIRECTORY, f"{prov_code}.json")
             with open(output_path, "w", encoding="utf-8") as f:
                 json.dump({"coordinates": coords}, f, ensure_ascii=False, indent=2)
