@@ -19,14 +19,14 @@ This is the architecture implemented:
 
 These are some of the results obtained:
 
-![til](images/dashboard1.png)
+![til](images/dashboard1.PNG)
 
-![til](images/dashboard2.png)
+![til](images/dashboard2.PNG)
 
-![til](images/dashboard3.png)
+![til](images/dashboard3.PNG)
 
-![til](images/dashboard4.png)
+![til](images/dashboard4.PNG)
 
-![til](images/dashboard5.png)
+![til](images/dashboard5.PNG)
 
-![til](images/dashboard6.png)
+![til](images/dashboard6.PNG)
