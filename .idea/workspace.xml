@@ -5,9 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f19d6318-ece7-4668-bc71-45d8631040b3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../kafka/8.tarea/src/main/resources/streams.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/architecture_presentation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dashboard1.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dashboard2.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dashboard3.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dashboard4.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dashboard5.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/dashboard6.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/8.tarea/connectors/source-datagen-sensor-telemetry.json" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/8.tarea/connectors/source-datagen-sensor-telemetry.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/8.tarea/connectors/source-mysql-transactions.json" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/8.tarea/connectors/source-mysql-transactions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/8.tarea/datagen/sensor-telemetry.avsc" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/8.tarea/datagen/sensor-telemetry.avsc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/8.tarea/datagen/transactions.avsc" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/8.tarea/datagen/transactions.avsc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/8.tarea/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/8.tarea/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/8.tarea/src/main/java/com/farmia/streaming/SalesSummaryApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/8.tarea/src/main/java/com/farmia/streaming/SalesSummaryApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/8.tarea/src/main/java/com/farmia/streaming/SensorAlerterApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/8.tarea/src/main/java/com/farmia/streaming/SensorAlerterApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../kafka/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../kafka/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/votes_manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/votes_manager.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generation/coordinates/coordinates.py" beforeDir="false" afterPath="$PROJECT_DIR$/generation/coordinates/coordinates.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" beforeDir="false" afterPath="$PROJECT_DIR$/streaming/jobs/votes_streaming_job.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,9 +66,9 @@
     "Python.testing_operations.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feat/adding-seats-by-region",
+    "git-widget-placeholder": "feat/adding-info-on-readme",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/dev/UCM-BD_DE/spain-cities-geojson"
+    "last_opened_file_path": "D:/dev/UCM-BD_DE/kafka"
   }
 }]]></component>
   <component name="RecentsManager">
