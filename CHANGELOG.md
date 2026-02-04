@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 - readme.md file: adding information and images
 ### Removed
 
-## [1.4.0] - 2026-02-02
+## [1.3.0] - 2026-02-02
 ### Added
 - generation/coordinates/coordinates.py: docstrings on some functions
 ### Changed
